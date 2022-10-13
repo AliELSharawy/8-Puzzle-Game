@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class Main {
 
@@ -10,8 +9,8 @@ public class Main {
         };
         Node root =new Node(puzzle);
 
-       BFS b =new BFS();
-        List <Node>  sol = b.bfs(root);
+        BFS b =new BFS();
+        b.bfs(root);
 
 
 

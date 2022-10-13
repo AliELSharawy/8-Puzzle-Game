@@ -2,7 +2,7 @@ import java.util.*;
 
 public class BFS {
 
-    public List<Node> bfs(Node root) {
+    public void bfs(Node root) {
         List<Node> path = new LinkedList<>();
         Queue<Node> queue = new LinkedList<>();
         Set<Node> visited = new HashSet<>();
@@ -23,7 +23,7 @@ public class BFS {
                     System.out.println("Goal Found");
                     found = true;
                     System.out.println();
-                    tacePath(path, child);
+                    tracePath(path, child);
                 }
                 if (!queue.contains(child) && !visited.contains(child))
                     queue.add(child);
@@ -33,10 +33,9 @@ public class BFS {
         long executionTime = System.currentTimeMillis() - start;
         System.out.println("Time " + executionTime);
 
-        return path;
     }
 
-    public void tacePath(List<Node> p, Node n) {
+    public void tracePath(List<Node> p, Node n) {
         Node curr = n;
         p.add(curr);
 
