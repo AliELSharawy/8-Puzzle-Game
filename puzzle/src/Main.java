@@ -10,10 +10,8 @@ public class Main {
         };
         Node root =new Node(puzzle);
 
-       BFS b =new BFS();
-        List <Node>  sol = b.bfs(root);
-
-
+       Agent b =new BFS();
+       List <Node> sol = b.solve(root);
 
     }
 }

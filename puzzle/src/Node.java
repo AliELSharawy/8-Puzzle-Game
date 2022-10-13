@@ -4,10 +4,8 @@ import java.util.List;
 public class Node {
 
     public int[] puzzle = new int[9];
-
-
     private int spaceIndex;
-    private List<Node> children;
+    private final List<Node> children;
     Node parent;
     int COL = 3;
 
@@ -38,68 +36,41 @@ public class Node {
      3 4 5
      6 7 8 */
     // if 2 or 5 or 8 can't move to right which % 3 =2
-    public void moveToRight(int[] p, int i) {
-        if (i % COL < 2) {
-            System.out.print(" r ");
-            // clone the array so not change in the original one
-            int[] pc = p.clone();
-            // swap the 2 numbers
-            int temp = pc[i + 1];
-            pc[i + 1] = pc[i];
-            pc[i] = temp;
-            Node child = new Node(pc);
-            this.children.add(child);
-            child.parent = this;
-        }
 
+    public int offset(char c) {
+        return switch (c) {
+            case 'u' -> -3;
+            case 'd' -> 3;
+            case 'l' -> -1;
+            case 'r' -> 1;
+            default -> 0;
+        };
     }
 
-    // 0 or 3 or 6  which divisible by 3 can't move to left
-    public void moveToLeft(int[] p, int i) {
-        if (i % COL != 0) {
-            System.out.print(" l ");
-            // clone the array so not change in the original one
-            int[] pc = p.clone();
-            // swap the 2 numbers
-            int temp = pc[i - 1];
-            pc[i - 1] = pc[i];
-            pc[i] = temp;
+    public void move(int[] p, int i, char direction) {
+        int offset = offset(direction);
+        if (isValid(i + offset)) {
+            System.out.print(' ' + direction + ' ');
+            int[] pc = swap(p, i, offset);
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
         }
-
     }
 
-    public void moveUp(int[] p, int i) {
-        if (i - COL > 0) {
-            System.out.print(" u ");
-            // clone the array so not change in the original one
-            int[] pc = p.clone();
-            // swap the 2 numbers
-            int temp = pc[i - 3];
-            pc[i - 3] = pc[i];
-            pc[i] = temp;
-            Node child = new Node(pc);
-            this.children.add(child);
-            child.parent = this;
-        }
+    private int[] swap(int[] p, int i, int j) {
+        // clone the array so not change in the original one
+        int[] pc = p.clone();
+        // swap the 2 numbers
+        int temp = pc[i + j];
+        pc[i + j] = pc[i];
+        pc[i] = temp;
 
+        return pc;
     }
 
-    public void moveDown(int[] p, int i) {
-        if (i + COL < puzzle.length) {
-            System.out.print(" d ");
-            // clone the array so not change in the original one
-            int[] pc = p.clone();
-            // swap the 2 numbers
-            int temp = pc[i + 3];
-            pc[i + 3] = pc[i];
-            pc[i] = temp;
-            Node child = new Node(pc);
-            this.children.add(child);
-            child.parent = this;
-        }
+    private boolean isValid(int i) {
+        return i >= 0 && i < puzzle.length;
     }
 
     // expand our algorithm
@@ -108,11 +79,10 @@ public class Node {
             if (puzzle[i] == 0)
                 setSpaceIndex(i);
 
-
-        moveToRight(puzzle, getSpaceIndex());
-        moveToLeft(puzzle, getSpaceIndex());
-        moveUp(puzzle, getSpaceIndex());
-        moveDown(puzzle, getSpaceIndex());
+        move(puzzle, getSpaceIndex(), 'r');
+        move(puzzle, getSpaceIndex(), 'l');
+        move(puzzle, getSpaceIndex(), 'u');
+        move(puzzle, getSpaceIndex(), 'd');
 
     }
 
@@ -130,12 +100,13 @@ public class Node {
 
 //0 1 2 3 4 5 6 7 8
     public boolean goalTest(){
-       int prev=puzzle[0];
-       for(int i=1;i<puzzle.length;i++){
+       int prev = puzzle[0];
+       for(int i = 1; i < puzzle.length; i++){
            if(prev > puzzle[i])
                return false;
-           prev=puzzle[i];
+           prev = puzzle[i];
        }
+
 
        return true;
     }
