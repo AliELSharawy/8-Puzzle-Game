@@ -32,7 +32,7 @@ public class BFS {
 
         long executionTime = System.currentTimeMillis() - start;
 
-        System.out.println("Time taken by BFS " + executionTime +" ms");
+        System.out.println("Time taken by BFS " + executionTime + " ms");
     }
 
     public void tracePath(List<Node> p, Node n) {

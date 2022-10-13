@@ -45,9 +45,8 @@ public class Node {
             // clone the array so not change in the original one
             int[] pc = p.clone();
             // swap the 2 numbers
-            int temp = pc[i + 1];
-            pc[i + 1] = pc[i];
-            pc[i] = temp;
+            pc[i] = pc[i + 1];
+            pc[i + 1] = 0;
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
@@ -62,9 +61,8 @@ public class Node {
             // clone the array so not change in the original one
             int[] pc = p.clone();
             // swap the 2 numbers
-            int temp = pc[i - 1];
-            pc[i - 1] = pc[i];
-            pc[i] = temp;
+            pc[i] = pc[i - 1];
+            pc[i - 1] = 0;
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
@@ -78,9 +76,8 @@ public class Node {
             // clone the array so not change in the original one
             int[] pc = p.clone();
             // swap the 2 numbers
-            int temp = pc[i - 3];
-            pc[i - 3] = pc[i];
-            pc[i] = temp;
+            pc[i] = pc[i - 3];
+            pc[i - 3] = 0;
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
@@ -94,9 +91,8 @@ public class Node {
             // clone the array so not change in the original one
             int[] pc = p.clone();
             // swap the 2 numbers
-            int temp = pc[i + 3];
-            pc[i + 3] = pc[i];
-            pc[i] = temp;
+            pc[i] = pc[i + 3];
+            pc[i + 3] = 0;
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
@@ -141,7 +137,7 @@ public class Node {
         return true;
     }
 
-    /* public void print(){
+    /*public void print(){
         for(Node child:getChildren()){
             for(int i=0;i<puzzle.length;i++){
                 System.out.print(child.puzzle[i]+" ");
