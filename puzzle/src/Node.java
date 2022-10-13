@@ -13,6 +13,7 @@ public class Node {
     public void setPuzzle(int[] puzzle) {
         this.puzzle = puzzle;
     }
+
     public List<Node> getChildren() {
         return children;
     }
@@ -36,7 +37,6 @@ public class Node {
      3 4 5
      6 7 8 */
     // if 2 or 5 or 8 can't move to right which % 3 =2
-
     public int offset(char c) {
         return switch (c) {
             case 'u' -> -3;
@@ -65,7 +65,6 @@ public class Node {
         int temp = pc[i + j];
         pc[i + j] = pc[i];
         pc[i] = temp;
-
         return pc;
     }
 
@@ -86,14 +85,14 @@ public class Node {
 
     }
 
-    //this function checks that this state wasn't same as prev state
+    /*this function checks that this state wasn't same as prev state
     public boolean is_same_puzzle(int[] p) {
         for (int i = 0; i < puzzle.length; i++) {
             if (puzzle[i] != p[i])
                 return false;
         }
         return true;
-    }
+    }*/
 
 
     //goal test check if number in the list is not in ascending order this means it's not int the goal
@@ -118,9 +117,6 @@ public class Node {
                 if(i%3==2)
                     System.out.println();
             }
-
-            System.out.println();
-            System.out.println();
         }
 
     }*/
