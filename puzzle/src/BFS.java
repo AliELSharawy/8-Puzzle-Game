@@ -31,8 +31,8 @@ public class BFS {
         }
 
         long executionTime = System.currentTimeMillis() - start;
-        System.out.println("Time " + executionTime);
 
+        System.out.println("Time taken by BFS " + executionTime +" ms");
     }
 
     public void tracePath(List<Node> p, Node n) {
@@ -43,7 +43,7 @@ public class BFS {
             curr = curr.parent;
             p.add(curr);
         }
-        for (int i = p.size()-1; i >=0 ; i--) {
+        for (int i = p.size() - 1; i >= 0; i--) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(p.get(i).puzzle[j] + " ");
                 if (j % 3 == 2)

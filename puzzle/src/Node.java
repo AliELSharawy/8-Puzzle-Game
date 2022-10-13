@@ -15,6 +15,7 @@ public class Node {
     public void setPuzzle(int[] puzzle) {
         this.puzzle = puzzle;
     }
+
     public List<Node> getChildren() {
         return children;
     }
@@ -116,40 +117,37 @@ public class Node {
 
     }
 
-    //this function checks that this state wasn't same as prev state
+    /*this function checks that this state wasn't same as prev state
     public boolean is_same_puzzle(int[] p) {
         for (int i = 0; i < puzzle.length; i++) {
             if (puzzle[i] != p[i])
                 return false;
         }
         return true;
-    }
+    }*/
 
 
     //goal test check if number in the list is not in ascending order this means it's not int the goal
 
-//0 1 2 3 4 5 6 7 8
-    public boolean goalTest(){
-       int prev=puzzle[0];
-       for(int i=1;i<puzzle.length;i++){
-           if(prev > puzzle[i])
-               return false;
-           prev=puzzle[i];
-       }
+    //0 1 2 3 4 5 6 7 8
+    public boolean goalTest() {
+        int prev = puzzle[0];
+        for (int i = 1; i < puzzle.length; i++) {
+            if (prev > puzzle[i])
+                return false;
+            prev = puzzle[i];
+        }
 
-       return true;
+        return true;
     }
 
-    /*public void print(){
+    /* public void print(){
         for(Node child:getChildren()){
             for(int i=0;i<puzzle.length;i++){
                 System.out.print(child.puzzle[i]+" ");
                 if(i%3==2)
                     System.out.println();
             }
-
-            System.out.println();
-            System.out.println();
         }
 
     }*/
