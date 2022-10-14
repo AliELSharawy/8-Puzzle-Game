@@ -6,8 +6,21 @@ public class Node {
     public int[] puzzle = new int[9];
     private int spaceIndex;
     private final List<Node> children;
-    Node parent;
+    public Node parent;
+    private int depth;
 
+    public int getDepth() {
+        return depth;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
+        this.depth = parent.depth + 1;
+    }
 
 
     public void setPuzzle(int[] puzzle) {
@@ -50,11 +63,11 @@ public class Node {
     public void move(int[] p, int i, char direction) {
         int offset = offset(direction);
         if (isValid(i + offset)) {
-            System.out.print(" " + direction + " ");
-            int[] pc = swap(p, i,  i + offset);
+            //System.out.print(" " + direction + " ");
+            int[] pc = swap(p, i, i + offset);
             Node child = new Node(pc);
             this.children.add(child);
-            child.parent = this;
+            child.setParent(this);
         }
     }
 
@@ -62,9 +75,8 @@ public class Node {
         // clone the array so not change in the original one
         int[] pc = p.clone();
         // swap the 2 numbers
-        int temp = pc[j];
-        pc[j] = pc[i];
-        pc[i] = temp;
+        pc[i] = pc[j];
+        pc[j] = 0;
         return pc;
     }
 
@@ -74,52 +86,39 @@ public class Node {
 
     // expand our algorithm
     public void moves() {
-        for (int i = 0; i < puzzle.length; i++)
-            if (puzzle[i] == 0)
+        for (int i = 0; i < puzzle.length; i++) {
+            if (puzzle[i] == 0) {
                 setSpaceIndex(i);
+                break;
+            }
+        }
 
-        move(puzzle, getSpaceIndex(), 'r');
-        move(puzzle, getSpaceIndex(), 'l');
+        if (getSpaceIndex() % 3 < 2)
+            move(puzzle, getSpaceIndex(), 'r');
+
+        if (getSpaceIndex() % 3 != 0)
+            move(puzzle, getSpaceIndex(), 'l');
+
         move(puzzle, getSpaceIndex(), 'u');
         move(puzzle, getSpaceIndex(), 'd');
 
     }
 
-    /*this function checks that this state wasn't same as prev state
-    public boolean is_same_puzzle(int[] p) {
-        for (int i = 0; i < puzzle.length; i++) {
-            if (puzzle[i] != p[i])
-                return false;
-        }
-        return true;
-    }*/
-
 
     //goal test check if number in the list is not in ascending order this means it's not int the goal
 
-//0 1 2 3 4 5 6 7 8
-    public boolean goalTest(){
-       int prev = puzzle[0];
-       for(int i = 1; i < puzzle.length; i++){
-           if(prev > puzzle[i])
-               return false;
-           prev = puzzle[i];
-       }
-
-
-       return true;
-    }
-
-    /*public void print(){
-        for(Node child:getChildren()){
-            for(int i=0;i<puzzle.length;i++){
-                System.out.print(child.puzzle[i]+" ");
-                if(i%3==2)
-                    System.out.println();
-            }
+    //0 1 2 3 4 5 6 7 8
+    public boolean goalTest() {
+        int prev = puzzle[0];
+        for (int i = 1; i < puzzle.length; i++) {
+            if (prev > puzzle[i])
+                return false;
+            prev = puzzle[i];
         }
 
-    }*/
+
+        return true;
+    }
 
 
 }

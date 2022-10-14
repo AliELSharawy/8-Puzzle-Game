@@ -1,36 +1,35 @@
 import java.util.*;
 
-public class BFS extends Agent{
+public class BFS extends Agent {
     @Override
     public List<Node> solve(Node root) {
         Queue<Node> queue = new LinkedList<>();
-        Set<Node> visited = new HashSet<>();
+        Set<int[]> visited = new HashSet<>();
 
         queue.add(root);
         boolean found = false;
         long start = System.currentTimeMillis();
 
         while (!queue.isEmpty() && !found) {
-            Node front = queue.poll();
-            visited.add(front);
+            Node state = queue.poll();
+            visited.add(state.puzzle);
 
-            front.moves();
-            System.out.println("here");
+            state.moves();
+            // this.searchDepth = Math.max(this.searchDepth, state.getDepth());
 
-            for (Node child : front.getChildren()) {
+            for (Node child : state.getChildren()) {
                 if (child.goalTest()) {
                     System.out.println("Goal Found");
                     found = true;
-                    System.out.println();
                     goal = child;
                 }
-                if (!queue.contains(child) && !visited.contains(child))
+                if (!queue.contains(child) && !visited.contains(child.puzzle))
                     queue.add(child);
             }
         }
 
         long executionTime = System.currentTimeMillis() - start;
-        System.out.println("Time " + executionTime);
+        System.out.println("Time taken by BFS " + executionTime + " ms");
         return tracePath(goal);
     }
 }
