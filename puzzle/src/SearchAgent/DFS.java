@@ -16,9 +16,7 @@ public class DFS extends Agent {
         long start = System.currentTimeMillis();
 
         while (!stack.isEmpty() && !found) {
-           // System.out.println(stack.size());
             Node state = stack.pop();
-           // System.out.println(stack.size());
             visited.add(state.puzzle);
 
             state.expand();
@@ -31,7 +29,7 @@ public class DFS extends Agent {
                     found = true;
                     goal = child;
                 }
-                System.out.println(child.puzzle[2]);
+
                 if (!stack.contains(child) && !visited.contains(child.puzzle))
                     stack.add(child);
             }
