@@ -101,13 +101,10 @@ public class Node {
         if (getSpaceIndex() % 3 != 0)
             move(puzzle, getSpaceIndex(), 'l');
 
-        // if 0 or 1 or 2 can't move to up
-        if(getSpaceIndex() > 2)
-            move(puzzle, getSpaceIndex(), 'u');
 
-        // if 6 or 7 or 8 can't move to down
-        if(getSpaceIndex() < 6)
-            move(puzzle, getSpaceIndex(), 'd');
+        move(puzzle, getSpaceIndex(), 'u');
+
+        move(puzzle, getSpaceIndex(), 'd');
 
     }
 
@@ -122,8 +119,6 @@ public class Node {
                 return false;
             prev = puzzle[i];
         }
-
-
         return true;
     }
 

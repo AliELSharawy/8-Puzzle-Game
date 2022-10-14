@@ -20,7 +20,7 @@ public class Main {
         };
         Node root = new Node(puzzle);
 
-        Agent b = new BFS();
+        Agent b = new DFS();
         List<Node> sol = b.solve(root);
 
     }

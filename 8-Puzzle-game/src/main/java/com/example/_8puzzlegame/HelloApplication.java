@@ -2,22 +2,46 @@ package com.example._8puzzlegame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
+    static Stage window;
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) {
+        Main.begin(stage);
     }
 
     public static void main(String[] args) {
+        // Launch? 🙂️
         launch();
+    }
+
+    public static void begin(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
+            Parent root = loader.load();
+
+            // To pass Stage to the Controller :)
+            HelloController controller = loader.getController();
+            controller.getMainStage(stage);
+
+            // For Image as an icon
+            Image icon = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/images_games/logo.png")));
+            stage.getIcons().add(icon);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.centerOnScreen();
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
