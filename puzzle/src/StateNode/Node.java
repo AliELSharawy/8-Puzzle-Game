@@ -1,5 +1,6 @@
 package StateNode;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Node {
         parent = null;
         depth = 0;
     }
+
 
     public Node getParent() {
         return parent;
@@ -53,6 +55,16 @@ public class Node {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Node))
+            return false;
+        if (o == this)
+            return true;
+
+        Node node = (Node) o;
+        return Arrays.equals(node.puzzle, this.puzzle);
+    }
     public int offset(char c) {
         return switch (c) {
             case 'u' -> -3;

@@ -19,22 +19,20 @@ public class Main {
                 7, 6, 5
         };*/
 
-    /* int[] puzzle = {
+     int[] puzzle = {
                 1, 2, 5,
                 3, 4, 0,
                6, 7, 8
-        };*/
+        };
 
+         Agent b = new BFS();
+          b.solve(puzzle);
 
-        int[] puzzle = {
+        /*int[] puzzle = {
                 1, 4, 2,
                 6, 5, 8,
                 7, 3, 0
-        };
-
-        Agent b = new BFS();
-
-        b.solve(puzzle);
+        };*/
 
        // AStar a = new AStar();
         //a.setHeuristicFunction(euclideanDistance);
