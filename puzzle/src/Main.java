@@ -4,7 +4,6 @@ import SearchAgent.DFS;
 import StateNode.Node;
 
 import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -22,7 +21,6 @@ public class Main {
         Node root = new Node(puzzle);
 
         Agent b = new BFS();
-        //Agent b = new DFS();
         List<Node> sol = b.solve(root);
 
     }

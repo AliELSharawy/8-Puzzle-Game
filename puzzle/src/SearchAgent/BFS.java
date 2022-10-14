@@ -17,9 +17,8 @@ public class BFS extends Agent {
         while (!queue.isEmpty() && !found) {
             Node state = queue.poll();
             visited.add(state.puzzle);
-
             state.moves();
-            // this.searchDepth = Math.max(this.searchDepth, state.getDepth());
+            this.searchDepth = Math.max(this.searchDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {
                 if (child.goalTest()) {

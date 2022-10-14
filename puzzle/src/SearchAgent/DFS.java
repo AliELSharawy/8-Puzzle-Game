@@ -7,10 +7,10 @@ import java.util.*;
 public class DFS extends Agent {
     @Override
     public List<Node> solve(Node root) {
-       /* Stack<Node> stack = new Stack<>();
+        Stack<Node> stack = new Stack<>();
         Set<int[]> visited = new HashSet<>();
 
-        stack.add(root);
+        stack.push(root);
         boolean found = false;
         long start = System.currentTimeMillis();
 
@@ -19,7 +19,7 @@ public class DFS extends Agent {
             visited.add(state.puzzle);
 
             state.moves();
-            // this.searchDepth = Math.max(this.searchDepth, state.getDepth());
+            this.searchDepth = Math.max(this.searchDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {
                 if (child.goalTest()) {
@@ -33,7 +33,7 @@ public class DFS extends Agent {
         }
 
         long executionTime = System.currentTimeMillis() - start;
-        System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");*/
+        System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");
         return tracePath(goal);
     }
 
