@@ -1,7 +1,5 @@
 package SearchAgent;
-
 import StateNode.Node;
-
 import java.util.LinkedList;
 import java.util.List;
 

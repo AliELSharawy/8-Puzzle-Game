@@ -4,7 +4,7 @@ import StateNode.Node;
 
 import java.util.*;
 
-public class BFS extends Agent {
+public class BFS extends Agent {//Queue
     @Override
     public List<Node> solve(Node root) {
         Queue<Node> queue = new LinkedList<>();

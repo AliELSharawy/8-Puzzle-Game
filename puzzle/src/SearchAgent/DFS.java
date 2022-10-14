@@ -1,10 +1,8 @@
 package SearchAgent;
-
 import StateNode.Node;
-
 import java.util.*;
 
-public class DFS extends Agent {
+public class DFS extends Agent {//Stack
     @Override
     public List<Node> solve(Node root) {
         Stack<Node> stack = new Stack<>();
