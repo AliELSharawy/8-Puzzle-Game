@@ -7,7 +7,7 @@ public class Node {
     private int spaceIndex;
     private final List<Node> children;
     Node parent;
-    int COL = 3;
+
 
 
     public void setPuzzle(int[] puzzle) {
@@ -50,8 +50,8 @@ public class Node {
     public void move(int[] p, int i, char direction) {
         int offset = offset(direction);
         if (isValid(i + offset)) {
-            System.out.print(' ' + direction + ' ');
-            int[] pc = swap(p, i, offset);
+            System.out.print(" " + direction + " ");
+            int[] pc = swap(p, i,  i + offset);
             Node child = new Node(pc);
             this.children.add(child);
             child.parent = this;
@@ -62,8 +62,8 @@ public class Node {
         // clone the array so not change in the original one
         int[] pc = p.clone();
         // swap the 2 numbers
-        int temp = pc[i + j];
-        pc[i + j] = pc[i];
+        int temp = pc[j];
+        pc[j] = pc[i];
         pc[i] = temp;
         return pc;
     }
