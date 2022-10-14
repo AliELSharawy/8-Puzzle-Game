@@ -17,7 +17,7 @@ public class BFS extends Agent {
 
         // if the initial case is the goal
         if (root.goalTest()) {
-            System.out.println("Goal Found It was the initial state");
+            System.out.println("Goal Found It was the initial state ");
             found = true;
             goal = root;
         }
