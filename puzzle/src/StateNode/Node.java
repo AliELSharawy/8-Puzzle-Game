@@ -48,10 +48,6 @@ public class Node {
         children = new LinkedList<>();
     }
 
-    /*0 1 2
-     3 4 5
-     6 7 8 */
-    // if 2 or 5 or 8 can't move to right which % 3 =2
     public int offset(char c) {
         return switch (c) {
             case 'u' -> -3;
@@ -87,6 +83,8 @@ public class Node {
     }
 
     // expand our algorithm
+
+
     public void moves() {
         for (int i = 0; i < puzzle.length; i++) {
             if (puzzle[i] == 0) {
@@ -95,15 +93,19 @@ public class Node {
             }
         }
 
+        // if 2 or 5 or 8 can't move to right which % 3 =2
         if (getSpaceIndex() % 3 < 2)
             move(puzzle, getSpaceIndex(), 'r');
 
+        // if 0 or 3 or 6 can't move to left which % 3 =0
         if (getSpaceIndex() % 3 != 0)
             move(puzzle, getSpaceIndex(), 'l');
 
+        // if 0 or 1 or 2 can't move to up
         if(getSpaceIndex() > 2)
             move(puzzle, getSpaceIndex(), 'u');
 
+        // if 6 or 7 or 8 can't move to down
         if(getSpaceIndex() < 6)
             move(puzzle, getSpaceIndex(), 'd');
 
