@@ -1,17 +1,21 @@
+package SearchAgent;
+
+import StateNode.Node;
+
 import java.util.*;
 
-public class BFS extends Agent {
+public class DFS extends Agent {
     @Override
     public List<Node> solve(Node root) {
-        Queue<Node> queue = new LinkedList<>();
+       /* Stack<Node> stack = new Stack<>();
         Set<int[]> visited = new HashSet<>();
 
-        queue.add(root);
+        stack.add(root);
         boolean found = false;
         long start = System.currentTimeMillis();
 
-        while (!queue.isEmpty() && !found) {
-            Node state = queue.poll();
+        while (!stack.isEmpty() && !found) {
+            Node state = stack.pop();
             visited.add(state.puzzle);
 
             state.moves();
@@ -23,13 +27,14 @@ public class BFS extends Agent {
                     found = true;
                     goal = child;
                 }
-                if (!queue.contains(child) && !visited.contains(child.puzzle))
-                    queue.add(child);
+                if (!stack.contains(child) && !visited.contains(child.puzzle))
+                    stack.add(child);
             }
         }
 
         long executionTime = System.currentTimeMillis() - start;
-        System.out.println("Time taken by BFS " + executionTime + " ms");
+        System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");*/
         return tracePath(goal);
     }
+
 }
