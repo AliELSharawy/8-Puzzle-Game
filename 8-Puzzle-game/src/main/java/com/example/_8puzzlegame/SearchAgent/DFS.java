@@ -1,36 +1,40 @@
 package com.example._8puzzlegame.SearchAgent;
 import com.example._8puzzlegame.StateNode.Node;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+
+import java.util.*;
 
 public class DFS extends Agent {
 
-    public List<Node> solve(Node root) {
+    //Stack
+    @Override
+    public List<Node> solve(int[] startState) {
+        Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
-        Set<int[]> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+
 
         stack.push(root);
         boolean found = false;
         long start = System.currentTimeMillis();
 
         while (!stack.isEmpty() && !found) {
-
             Node state = stack.pop();
-            visited.add(state.puzzle);
-            state.moves();
-            this.searchDepth = Math.max(this.searchDepth, state.getDepth());
+            visited.add(Arrays.toString(state.puzzle));
+            state.expand();
+            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
-            for (Node child : state.getChildren()) {
-                if (child.goalTest()) {
-                    System.out.println("Goal Found");
-                    found = true;
-                    goal = child;
-                }
-                if (!stack.contains(child) && !visited.contains(child.puzzle))
-                    stack.push(child);
+            if (state.goalTest()) {
+                System.out.println("Goal Found");
+                found = true;
+                goal = state;
             }
+            for (Node child : state.getChildren()) {
+                if (!visited.contains(Arrays.toString(child.puzzle))){
+                    stack.add(child);
+                }
+
+            }
+
         }
 
         long executionTime = System.currentTimeMillis() - start;

@@ -27,7 +27,7 @@ public class HelloController {
 
         Agent b = new BFS();
         Agent d = new DFS();
-        List<Node> sol = b.solve(root);
+        List<Node> sol = b.solve(root.puzzle);
         puzzleGame x = new puzzleGame();
         x.startPlaying(stage);
     }
