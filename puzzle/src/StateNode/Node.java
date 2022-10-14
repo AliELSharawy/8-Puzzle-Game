@@ -101,8 +101,11 @@ public class Node {
         if (getSpaceIndex() % 3 != 0)
             move(puzzle, getSpaceIndex(), 'l');
 
-        move(puzzle, getSpaceIndex(), 'u');
-        move(puzzle, getSpaceIndex(), 'd');
+        if(getSpaceIndex() > 2)
+            move(puzzle, getSpaceIndex(), 'u');
+
+        if(getSpaceIndex() < 6)
+            move(puzzle, getSpaceIndex(), 'd');
 
     }
 
