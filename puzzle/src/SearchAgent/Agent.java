@@ -1,0 +1,56 @@
+package SearchAgent;
+import StateNode.Node;
+import java.util.LinkedList;
+import java.util.List;
+
+public abstract class Agent {
+    protected Node goal;
+    protected int maxDepth;
+
+    protected int nodesExpanded;
+
+    public Agent() {
+        goal = null;
+        maxDepth = 0;
+        nodesExpanded = 0;
+    }
+
+    public abstract List<Node> solve(int[] startState);
+
+    public void expand(Node state) {
+        nodesExpanded += state.moves();
+    }
+    public List<Node> tracePath(Node n) {
+        LinkedList<Node> p = new LinkedList<>();
+        Node curr = n;
+        p.add(curr);
+
+        while (curr.parent != null) {
+            curr = curr.parent;
+            p.add(curr);
+        }
+
+        for (int i = p.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(p.get(i).puzzle[j] + " ");
+                if (j % 3 == 2)
+                    System.out.println();
+            }
+            System.out.println();
+        }
+        System.out.println("cost " + (p.size() - 1));
+        return p;
+    }
+
+    public int getDepth() {
+        return goal.getDepth();
+    }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
+
+    public int getNodesExpanded() {
+        return nodesExpanded;
+    }
+}
