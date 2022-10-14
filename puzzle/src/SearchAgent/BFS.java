@@ -9,7 +9,7 @@ public class BFS extends Agent {
     public List<Node> solve(int[] startState) {
         Node root = new Node(startState);
         Queue<Node> queue = new LinkedList<>();
-        Set<int[]> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
 
         queue.add(root);
         boolean found = false;
@@ -24,7 +24,7 @@ public class BFS extends Agent {
 
         while (!queue.isEmpty() && !found) {
             Node state = queue.poll();
-            visited.add(state.puzzle);
+            visited.add(Arrays.toString(state.puzzle));
             state.expand();
 
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
@@ -35,7 +35,7 @@ public class BFS extends Agent {
                     found = true;
                     goal = child;
                 }
-                if (!queue.contains(child) && !visited.contains(child.puzzle))
+                if (!visited.contains(Arrays.toString(child.puzzle)))
                     queue.add(child);
             }
         }

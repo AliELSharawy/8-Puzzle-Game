@@ -9,7 +9,8 @@ public class DFS extends Agent {
     public List<Node> solve(int[] startState) {
         Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
-        Set<int[]> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+
 
         stack.push(root);
         boolean found = false;
@@ -17,21 +18,20 @@ public class DFS extends Agent {
 
         while (!stack.isEmpty() && !found) {
             Node state = stack.pop();
-            visited.add(state.puzzle);
-
+            visited.add(Arrays.toString(state.puzzle));
             state.expand();
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
+
             if (state.goalTest()) {
                 System.out.println("Goal Found");
                 found = true;
                 goal = state;
             }
-            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
-
             for (Node child : state.getChildren()) {
-
-                if (!stack.contains(child) && !visited.contains(child.puzzle))
+                if (!visited.contains(Arrays.toString(child.puzzle))){
                     stack.add(child);
+                }
+
             }
 
         }
