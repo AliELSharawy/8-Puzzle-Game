@@ -8,7 +8,7 @@ public class Main {
                 3, 4, 0,
                 6, 7, 8
         };
-        Node root =new Node(puzzle);
+        Node root = new Node(puzzle);
 
         Agent b =new BFS();
         List<Node> sol = b.solve(root);

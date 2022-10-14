@@ -5,10 +5,25 @@ public class Node {
 
     public int[] puzzle = new int[9];
     private int spaceIndex;
+    private int depth;
     private final List<Node> children;
     Node parent;
 
+    public Node(int[] p) {
+        setPuzzle(p);
+        setSpaceIndex(0);
+        children = new LinkedList<>();
+        parent = null;
+        depth = 0;
+    }
 
+    public void setDepth(int d) {
+        depth = d;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
 
     public void setPuzzle(int[] puzzle) {
         this.puzzle = puzzle;
@@ -25,12 +40,6 @@ public class Node {
 
     public void setSpaceIndex(int spaceIndex) {
         this.spaceIndex = spaceIndex;
-    }
-
-    public Node(int[] p) {
-        setPuzzle(p);
-        setSpaceIndex(0);
-        children = new LinkedList<>();
     }
 
     /*0 1 2
@@ -53,6 +62,7 @@ public class Node {
             System.out.print(" " + direction + " ");
             int[] pc = swap(p, i,  i + offset);
             Node child = new Node(pc);
+            child.setDepth(depth + 1);
             this.children.add(child);
             child.parent = this;
         }
@@ -105,8 +115,6 @@ public class Node {
                return false;
            prev = puzzle[i];
        }
-
-
        return true;
     }
 

@@ -14,7 +14,7 @@ public abstract class Agent {
             curr = curr.parent;
             p.add(curr);
         }
-        for (int i = p.size()-1; i >=0 ; i--) {
+        for (int i = p.size() - 1; i >= 0 ; i--) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(p.get(i).puzzle[j] + " ");
                 if (j % 3 == 2)
