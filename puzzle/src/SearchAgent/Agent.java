@@ -4,17 +4,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Agent {
-    protected Node goal = null;
+    protected Node goal;
+    protected int maxDepth;
 
-    public abstract List<Node> solve(Node root);
+    protected int nodesExpanded;
 
-    protected int cost;
-    protected int searchDepth = 0;
-
-    public int getSearchDepth() {
-        return this.searchDepth;
+    public Agent() {
+        goal = null;
+        maxDepth = 0;
+        nodesExpanded = 0;
     }
 
+    public abstract List<Node> solve(int[] startState);
+
+    public void expand(Node state) {
+        nodesExpanded += state.expand();
+    }
     public List<Node> tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
@@ -24,7 +29,7 @@ public abstract class Agent {
             curr = curr.parent;
             p.add(curr);
         }
-        this.cost = p.size() - 1;
+
         for (int i = p.size() - 1; i >= 0; i--) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(p.get(i).puzzle[j] + " ");
@@ -33,9 +38,19 @@ public abstract class Agent {
             }
             System.out.println();
         }
-        System.out.println("cost " + this.cost);
+        System.out.println("cost " + (p.size() - 1));
         return p;
     }
 
+    public int getDepth() {
+        return goal.getDepth();
+    }
 
+    public int getMaxDepth() {
+        return maxDepth;
+    }
+
+    public int getNodesExpanded() {
+        return nodesExpanded;
+    }
 }

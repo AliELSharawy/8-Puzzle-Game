@@ -4,9 +4,10 @@ import StateNode.Node;
 
 import java.util.*;
 
-public class BFS extends Agent {//Queue
+public class BFS extends Agent {
     @Override
-    public List<Node> solve(Node root) {
+    public List<Node> solve(int[] startState) {
+        Node root = new Node(startState);
         Queue<Node> queue = new LinkedList<>();
         Set<int[]> visited = new HashSet<>();
 
@@ -17,8 +18,8 @@ public class BFS extends Agent {//Queue
         while (!queue.isEmpty() && !found) {
             Node state = queue.poll();
             visited.add(state.puzzle);
-            state.moves();
-            this.searchDepth = Math.max(this.searchDepth, state.getDepth());
+            state.expand();
+            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {
                 if (child.goalTest()) {

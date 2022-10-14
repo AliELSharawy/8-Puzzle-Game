@@ -2,9 +2,12 @@ package SearchAgent;
 import StateNode.Node;
 import java.util.*;
 
-public class DFS extends Agent {//Stack
+public class DFS extends Agent {
+
+    //Stack
     @Override
-    public List<Node> solve(Node root) {
+    public List<Node> solve(int[] startState) {
+        Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
         Set<int[]> visited = new HashSet<>();
 
@@ -18,8 +21,8 @@ public class DFS extends Agent {//Stack
            // System.out.println(stack.size());
             visited.add(state.puzzle);
 
-            state.moves();
-            this.searchDepth = Math.max(this.searchDepth, state.getDepth());
+            state.expand();
+            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
 
             for (Node child : state.getChildren()) {
