@@ -15,19 +15,26 @@ public class BFS extends Agent {
         boolean found = false;
         long start = System.currentTimeMillis();
 
+        // if the initial case is the goal
+        if (root.goalTest()) {
+            System.out.println("Goal Found It was the initial state");
+            found = true;
+            goal = root;
+        }
+
         while (!queue.isEmpty() && !found) {
             Node state = queue.poll();
             visited.add(state.puzzle);
             state.expand();
-            if (state.goalTest()) {
-                System.out.println("Goal Found");
-                found = true;
-                goal = state;
-            }
+
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {
-
+                if (child.goalTest()) {
+                    System.out.println("Goal Found");
+                    found = true;
+                    goal = child;
+                }
                 if (!queue.contains(child) && !visited.contains(child.puzzle))
                     queue.add(child);
             }
