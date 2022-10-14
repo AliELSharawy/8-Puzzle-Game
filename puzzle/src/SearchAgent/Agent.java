@@ -18,7 +18,7 @@ public abstract class Agent {
     public abstract List<Node> solve(int[] startState);
 
     public void expand(Node state) {
-        nodesExpanded += state.moves();
+        nodesExpanded += state.expand();
     }
     public List<Node> tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();

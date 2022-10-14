@@ -18,7 +18,7 @@ public class BFS extends Agent {
         while (!queue.isEmpty() && !found) {
             Node state = queue.poll();
             visited.add(state.puzzle);
-            state.moves();
+            state.expand();
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {

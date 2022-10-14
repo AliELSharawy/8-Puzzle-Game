@@ -108,7 +108,7 @@ public class Node {
 
     // expand our algorithm
 
-    public int moves() {
+    public int expand() {
         int noStates = 0;
         for (int i = 0; i < puzzle.length; i++) {
             if (puzzle[i] == 0) {

@@ -19,7 +19,7 @@ public class DFS extends Agent {
             Node state = stack.pop();
             visited.add(state.puzzle);
 
-            state.moves();
+            state.expand();
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
             for (Node child : state.getChildren()) {
