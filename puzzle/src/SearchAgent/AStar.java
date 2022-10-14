@@ -3,10 +3,8 @@ package SearchAgent;
 import StateNode.Node;
 
 import java.awt.*;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.function.BiFunction;
 
 public class AStar extends Agent{
@@ -23,16 +21,16 @@ public class AStar extends Agent{
 
         while (!pq.isEmpty() && !found) {
             Node state = pq.poll();
-            visited.add(state.puzzle);
-            state.expand();
 
-            for (Node child : state.getChildren()) {
-                if (child.goalTest()) {
-                    goal = child;
-                    found = true;
-                }
-                if (!visited.contains(child.puzzle) && !pq.contains(child))
-                    pq.add(child);
+            if (state.goalTest()) {
+                goal = state;
+                break;
+            }
+
+            if (!visited.contains(state.puzzle)) {
+                visited.add(state.puzzle);
+                state.expand();
+                pq.addAll(state.getChildren());
             }
         }
         return tracePath(goal);

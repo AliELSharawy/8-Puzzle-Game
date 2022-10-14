@@ -1,9 +1,10 @@
 import SearchAgent.AStar;
 import SearchAgent.Agent;
 import SearchAgent.BFS;
-import SearchAgent.DFS;
+import StateNode.Node;
 
 import java.awt.*;
+import java.util.List;
 import java.util.function.BiFunction;
 
 public class Main {
@@ -24,9 +25,9 @@ public class Main {
 //                3, 4, 0,
 //                6, 7, 8
 //        };
-
-        // Agent b = new BFS();
-        // List<Node> sol = b.solve(puzzle);
+//
+//         Agent b = new BFS();
+//         List<Node> sol = b.solve(puzzle);
 
         int[] puzzle = {
                 1, 4, 2,
