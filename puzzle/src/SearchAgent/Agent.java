@@ -15,7 +15,7 @@ public abstract class Agent {
         nodesExpanded = 0;
     }
 
-    public abstract List<Node> solve(int[] startState);
+    public abstract void solve(int[] startState);
 
     public void expand(Node state) {
         nodesExpanded += state.expand();
@@ -39,6 +39,7 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
+        System.out.println( "maxDepth :" + getMaxDepth());
         return p;
     }
 

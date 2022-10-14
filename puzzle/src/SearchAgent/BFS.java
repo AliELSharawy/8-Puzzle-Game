@@ -6,7 +6,7 @@ import java.util.*;
 
 public class BFS extends Agent {
     @Override
-    public List<Node> solve(int[] startState) {
+    public void solve(int[] startState) {
         Node root = new Node(startState);
         Queue<Node> queue = new LinkedList<>();
         Set<String> visited = new HashSet<>();
@@ -41,7 +41,14 @@ public class BFS extends Agent {
         }
 
         long executionTime = System.currentTimeMillis() - start;
-        System.out.println("Time taken by SearchAgent.BFS " + executionTime + " ms");
-        return tracePath(goal);
+
+       // return tracePath(goal);
+        if(goal !=null){
+            tracePath(goal);
+            System.out.println("Time taken by SearchAgent BFS " + executionTime + " ms");
+        }
+        else
+            System.out.println(" Not solvable Example  !!!! ");
+
     }
 }

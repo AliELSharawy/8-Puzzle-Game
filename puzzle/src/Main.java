@@ -13,7 +13,8 @@ public class Main {
             (Point p1, Point p2) -> Double.valueOf(Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y));
 
     public static void main(String[] args) {
-        /*int[] puzzle = {
+
+       /*int[] puzzle = {
                 1, 2, 3,
                 8, 0, 4,
                 7, 6, 5
@@ -24,19 +25,35 @@ public class Main {
                 3, 4, 0,
                6, 7, 8
         };*/
-        int[] puzzle = {
+
+        /*int[] puzzle = {
                 1, 4, 2,
                 6, 5, 8,
                 7, 3, 0
+        };*/
+      /*  int[] puzzle = {
+                1, 2, 3,
+                5, 6, 0,
+                7, 8, 4
+        };*/
+
+
+
+        int[] puzzle = {
+                1, 2, 3,
+                4, 5, 6,
+                8,7 , 0
         };
 
-         Agent b = new BFS();
-          b.solve(puzzle);
+
+
+        Agent b = new BFS();
+        b.solve(puzzle);
 
 
 
-       // AStar a = new AStar();
-        //a.setHeuristicFunction(euclideanDistance);
+        //AStar a = new AStar();
+       // a.setHeuristicFunction(euclideanDistance);
         //a.solve(puzzle);
 
     }
