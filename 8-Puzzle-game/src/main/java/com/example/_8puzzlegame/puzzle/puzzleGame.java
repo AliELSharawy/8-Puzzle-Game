@@ -30,11 +30,7 @@ public class puzzleGame {
         int h = 500;
         int w = 500;
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                updateUX(i+1,j+1,i);
-            }
-        }
+
 
         drawGridPane();
 
@@ -71,6 +67,11 @@ public class puzzleGame {
                 gridPane.add(field, i, j);
             }
         }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                updateUX(i,j,i);
+            }
+        }
 
     }
 
@@ -85,7 +86,7 @@ public class puzzleGame {
         Image image = new Image(location);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(120);
-        imageView.setFitHeight(120);
+        imageView.setFitHeight(100);
         return imageView;
     }
 }
