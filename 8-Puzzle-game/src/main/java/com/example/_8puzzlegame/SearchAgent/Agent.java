@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class Agent {
     protected Node goal;
+    public LinkedList<Node> res = new LinkedList<>();
     protected int maxDepth;
 
     protected int nodesExpanded;
@@ -40,6 +41,7 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
+        res=p;
         return p;
     }
 

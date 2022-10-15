@@ -29,7 +29,7 @@ public class HelloController {
         Agent d = new DFS();
         List<Node> sol = b.solve(root.puzzle);
         puzzleGame x = new puzzleGame();
-        x.startPlaying(stage);
+        x.startPlaying(stage,b.res);
     }
 
     public void getMainStage(Stage stage) {
