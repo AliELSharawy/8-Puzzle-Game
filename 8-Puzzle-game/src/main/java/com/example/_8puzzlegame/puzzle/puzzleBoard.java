@@ -1,8 +1,6 @@
 package com.example._8puzzlegame.puzzle;
 
 
-import static com.example._8puzzlegame.Constants.*;
-
 
 public class puzzleBoard {
 
@@ -10,9 +8,9 @@ public class puzzleBoard {
 
 
     public puzzleBoard() {
-        this.board = new char[XO_WIDTH][XO_WIDTH];
-        for (int i = 0; i < XO_WIDTH; i++) {
-            for (int j = 0; j < XO_WIDTH; j++) {
+        this.board = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 this.board[i][j] = '0';
             }
         }

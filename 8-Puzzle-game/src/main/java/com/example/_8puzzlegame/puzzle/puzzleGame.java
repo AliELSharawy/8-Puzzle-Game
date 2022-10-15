@@ -1,8 +1,6 @@
 package com.example._8puzzlegame.puzzle;
-import com.example._8puzzlegame.CommonUX;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,8 +27,8 @@ public class puzzleGame {
     }
     private void drawMainWindowForXO(Stage stage) {
         AnchorPane pane = new AnchorPane();
-        int h = 60 * 2 + 220 * 3 + 3 * 2;
-        int w = 60 * 2 +220 * 3 + 3 * 2;
+        int h = 500;
+        int w = 500;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -39,12 +37,9 @@ public class puzzleGame {
         }
 
         drawGridPane();
-        int yPosFooter = h - 60;
-        Button startNewGame = CommonUX.getButton("Start", w - 120, yPosFooter);
-        startNewGame.setOnMouseClicked(e -> startNew());
-        Button returnToMain = CommonUX.getButton("Menu", 40, yPosFooter);
 
-        pane.getChildren().addAll(gridPane, returnToMain, startNewGame);
+
+        pane.getChildren().addAll(gridPane);
 
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -62,7 +57,7 @@ public class puzzleGame {
         gridPane.setDisable(false);
         gridPane.setLayoutY(60);
         // Properties for the GridPane
-        gridPane.setPadding(new Insets(40,40,40,40));
+        gridPane.setPadding(new Insets(40,40,40,70));
         gridPane.setHgap(1);
         gridPane.setVgap(1);
 
@@ -77,16 +72,12 @@ public class puzzleGame {
             }
         }
 
-        gridPane.setOnMouseClicked(e -> {
-            int i = (int) ((e.getY() - 40) / 120);
-            int j = (int) ((e.getX() - 40) / 120);
-
-        });
     }
 
 
     private void updateUX(int i, int j,int index) {
         ImageView imageView = getSpirit(index);
+        System.out.println("dddd");
         gridPane.add(imageView, j, i);
     }
     private ImageView getSpirit(int i) {
