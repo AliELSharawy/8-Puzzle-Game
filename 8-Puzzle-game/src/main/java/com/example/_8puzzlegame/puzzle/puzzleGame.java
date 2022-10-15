@@ -26,10 +26,10 @@ public class puzzleGame {
         this.board = new puzzleBoard();
     }
 
-    public void startPlaying(Stage stage, LinkedList<Node> res) {
+    public void startPlaying(Stage stage, Node res) {
         drawMainWindowForXO(stage,res);
     }
-    private void drawMainWindowForXO(Stage stage, LinkedList<Node> res) {
+    private void drawMainWindowForXO(Stage stage, Node res) {
         AnchorPane pane = new AnchorPane();
         int h = 500;
         int w = 500;
@@ -46,12 +46,12 @@ public class puzzleGame {
     }
 
     private void startNew() {
-        LinkedList<Node> res= new LinkedList<>();
+        Node res= new Node(new int[9]);
         drawGridPane(res);
         board = new puzzleBoard();
     }
 
-    private void drawGridPane(LinkedList<Node> res) {
+    private void drawGridPane(Node res) {
         // Clear all
         gridPane.getChildren().clear();
         gridPane.setDisable(false);
@@ -73,34 +73,33 @@ public class puzzleGame {
                 gridPane.add(field, i, j);
             }
         }
-        for (int k= res.size()-1;k>=0;k--) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (res.get(k).puzzle[j + 3 * i] != 0) {
-                        updateUX(i, j, res.get(k).puzzle[j + 3 * i]);
+                    if (res.puzzle[j + 3 * i] != 0) {
+                        updateUX(i, j, res.puzzle[j + 3 * i]);
                     }
                 }
-            }
 
-            if(k!=0) {
-                gridPane.getChildren().clear();
-                gridPane.setDisable(false);
-                gridPane.setLayoutY(60);
-                // Properties for the GridPane
-                gridPane.setPadding(new Insets(40, 40, 40, 70));
-                gridPane.setHgap(1);
-                gridPane.setVgap(1);
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        // For the Background Colors
-                        StackPane field = new StackPane();
-                        field.setMinWidth(120);
-                        field.setMinHeight(120);
-                        field.setBackground(White);
-                        gridPane.add(field, i, j);
-                    }
-                }
-            }
+
+//            if(k!=0) {
+//                gridPane.getChildren().clear();
+//                gridPane.setDisable(false);
+//                gridPane.setLayoutY(60);
+//                // Properties for the GridPane
+//                gridPane.setPadding(new Insets(40, 40, 40, 70));
+//                gridPane.setHgap(1);
+//                gridPane.setVgap(1);
+//                for (int i = 0; i < 3; i++) {
+//                    for (int j = 0; j < 3; j++) {
+//                        // For the Background Colors
+//                        StackPane field = new StackPane();
+//                        field.setMinWidth(120);
+//                        field.setMinHeight(120);
+//                        field.setBackground(White);
+//                        gridPane.add(field, i, j);
+//                    }
+//                }
+//            }
         }
 
     }
