@@ -86,7 +86,7 @@ public class puzzleGame {
         Button start = new Button("Solve :)");
         start.setLayoutX(700);
         start.setLayoutY(400);
-        start.setOnMouseClicked(e -> solveMethod(p, (String) combo_box.getValue()));
+        start.setOnMouseClicked(e -> solveMethod(text.getText(),p, (String) combo_box.getValue()));
 
         //button of puzzle entrance
         Button next = new Button("Next");
@@ -144,15 +144,15 @@ public class puzzleGame {
             for (int j = 0; j < 3; j++) {
                 if (arr1[j + 3 * i] != 0) {
                     updateUX(i, j, arr1[j + 3 * i]);
-                    p[j+3*i]=arr1[j+3*i];
                 }
+                p[j+3*i]=arr1[j+3*i];
             }
         }
     }
 
-    public void solveMethod(int[] arr, String method){
+    public void solveMethod(String arr1,int[] arr, String method){
+        solving(arr1);
         System.out.println(method);
-
         switch (method) {
             case "BFS" :
                 b.solve(arr);
