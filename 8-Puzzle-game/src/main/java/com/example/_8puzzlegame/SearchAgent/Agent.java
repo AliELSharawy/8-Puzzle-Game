@@ -1,5 +1,6 @@
-package SearchAgent;
-import StateNode.Node;
+package com.example._8puzzlegame.SearchAgent;
+import com.example._8puzzlegame.StateNode.Node;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public abstract class Agent {
         nodesExpanded = 0;
     }
 
-    public abstract void solve(int[] startState);
+    public abstract List<Node> solve(int[] startState);
 
     public void expand(Node state) {
         nodesExpanded += state.expand();
@@ -39,7 +40,6 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
-        System.out.println( "maxDepth :" + getMaxDepth());
         return p;
     }
 

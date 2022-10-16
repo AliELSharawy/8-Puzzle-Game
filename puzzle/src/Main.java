@@ -1,10 +1,9 @@
 import SearchAgent.AStar;
 import SearchAgent.Agent;
 import SearchAgent.BFS;
-import StateNode.Node;
+import SearchAgent.DFS;
 
 import java.awt.*;
-import java.util.List;
 import java.util.function.BiFunction;
 
 public class Main {
@@ -14,12 +13,12 @@ public class Main {
             (Point p1, Point p2) -> Double.valueOf(Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y));
 
     public static void main(String[] args) {
-        /*int[] puzzle = {
+
+       /*int[] puzzle = {
                 1, 2, 3,
                 8, 0, 4,
                 7, 6, 5
         };*/
-
 
 //        int[] puzzle = {
 //                1, 2, 5,

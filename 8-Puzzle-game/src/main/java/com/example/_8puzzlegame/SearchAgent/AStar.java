@@ -1,25 +1,23 @@
-package SearchAgent;
-
-import StateNode.Node;
-
+package com.example._8puzzlegame.SearchAgent;
+import com.example._8puzzlegame.StateNode.Node;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiFunction;
 
-public class AStar extends Agent {
+public class AStar extends Agent{
 
     private BiFunction<Point, Point, Double> heuristicFunction;
-
     @Override
-    public void solve(int[] startState) {
+    public List<Node> solve(int[] startState) {
         Node root = new Node(startState);
         PriorityQueue<Node> pq = new PriorityQueue<>((Node n1, Node n2) ->
                 Double.compare(n1.getDepth() + calculateHeuristic(n1.puzzle), n2.getDepth() + calculateHeuristic(n2.puzzle)));
-        Set<String> visited = new HashSet<>();
+        Set<int[]> visited = new HashSet<>();
         pq.add(root);
+        boolean found = false;
 
-        long start = System.currentTimeMillis();
-        while (!pq.isEmpty()) {
+        while (!pq.isEmpty() && !found) {
             Node state = pq.poll();
 
             if (state.goalTest()) {
@@ -27,22 +25,13 @@ public class AStar extends Agent {
                 break;
             }
 
-            if (!visited.contains(Arrays.toString(state.puzzle))) {
-                this.maxDepth = Math.max(this.maxDepth, state.getDepth() + 1);
-                visited.add(Arrays.toString(state.puzzle));
+            if (!visited.contains(state.puzzle)) {
+                visited.add(state.puzzle);
                 state.expand();
                 pq.addAll(state.getChildren());
             }
         }
-        long executionTime = System.currentTimeMillis() - start;
-
-        //return tracePath(goal);
-        if (goal != null) {
-            tracePath(goal);
-            System.out.println("Time taken by SearchAgent AStar " + executionTime + " ms");
-        } else
-            System.out.println(" Not solvable Example  !!!! ");
-
+        return tracePath(goal);
     }
 
     public void setHeuristicFunction(BiFunction<Point, Point, Double> hFn) {
