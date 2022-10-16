@@ -7,6 +7,7 @@ module com.example._8puzzlegame {
     requires org.kordamp.bootstrapfx.core;
     requires java.datatransfer;
     requires java.desktop;
+    requires javafx.graphics;
 
     opens com.example._8puzzlegame to javafx.fxml;
     exports com.example._8puzzlegame;

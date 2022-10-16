@@ -1,24 +1,23 @@
 package com.example._8puzzlegame.puzzle;
 
 
-import static com.example._8puzzlegame.Constants.*;
-
+import com.example._8puzzlegame.pieces.num;
 
 public class puzzleBoard {
 
-    private final char[][] board;
+    private final num[][] board;
 
 
     public puzzleBoard() {
-        this.board = new char[XO_WIDTH][XO_WIDTH];
-        for (int i = 0; i < XO_WIDTH; i++) {
-            for (int j = 0; j < XO_WIDTH; j++) {
-                this.board[i][j] = '0';
+        this.board = new num[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                this.board[i][j] = new num();
             }
         }
     }
 
-    public puzzleBoard(char[][] board) {
+    public puzzleBoard(num[][] board) {
         this.board = board;
     }
 

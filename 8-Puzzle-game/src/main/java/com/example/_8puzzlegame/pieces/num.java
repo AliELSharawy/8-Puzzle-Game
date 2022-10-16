@@ -14,7 +14,7 @@ public class num {
 
 
     public void setPieceSprite() {
-        String location = "file:src/main/resources/" + "img.png";
+        String location = "file:src/main/resources/" + "1.png";
         Image image = new Image(location);
         imageView = new ImageView(image);
         imageView.setFitWidth(40);

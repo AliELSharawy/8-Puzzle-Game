@@ -18,18 +18,24 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to 8 Puzzle Game :)");
-        int[] puzzle = {
-                1, 2, 5,
-                3, 4, 0,
-                6, 7, 8
-        };
-        Node root = new Node(puzzle);
-
-        Agent b = new BFS();
-        Agent d = new DFS();
-        List<Node> sol = b.solve(root.puzzle);
         puzzleGame x = new puzzleGame();
         x.startPlaying(stage);
+//        int[] puzzle = {
+//                1, 2, 5,
+//                3, 4, 0,
+//                6, 7, 8
+//        };
+//        Node root = new Node(puzzle);
+//
+//        Agent b = new BFS();
+//        Agent d = new DFS();
+//        List<Node> sol = b.solve(root.puzzle);
+
+
+//        for (int i=b.res.size()-1;i>=0;i--){
+//            x.startPlaying(stage);
+//            x.solvePuzzle(b.res.get(i));
+//        }
     }
 
     public void getMainStage(Stage stage) {
