@@ -37,7 +37,7 @@ public class AStar extends Agent {
 
             if (!visited.contains(Arrays.toString(state.puzzle))) {
                 visited.add(Arrays.toString(state.puzzle));
-                state.expand();
+                expand(state);
                 pq.addAll(state.getChildren());
             }
         }
