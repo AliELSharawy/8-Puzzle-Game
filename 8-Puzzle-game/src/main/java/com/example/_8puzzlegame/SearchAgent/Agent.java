@@ -1,8 +1,10 @@
 package com.example._8puzzlegame.SearchAgent;
 import com.example._8puzzlegame.StateNode.Node;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public abstract class Agent {
     protected Node goal;
@@ -55,5 +57,8 @@ public abstract class Agent {
 
     public int getNodesExpanded() {
         return nodesExpanded;
+    }
+
+    public void setHeuristicFunction(BiFunction<Point, Point, Double> euclideanDistance) {
     }
 }

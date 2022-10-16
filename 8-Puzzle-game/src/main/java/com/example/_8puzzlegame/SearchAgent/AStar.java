@@ -34,6 +34,7 @@ public class AStar extends Agent{
         return tracePath(goal);
     }
 
+
     public void setHeuristicFunction(BiFunction<Point, Point, Double> hFn) {
         heuristicFunction = hFn;
     }
