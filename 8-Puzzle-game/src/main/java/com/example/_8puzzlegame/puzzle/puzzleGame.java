@@ -37,9 +37,9 @@ public class puzzleGame {
 
     public int ctr = puzz.size() - 1;
 
-    Agent b = new BFS();
-    Agent d = new DFS();
-    Agent a = new AStar();
+//    Agent b = new BFS();
+//    Agent d = new DFS();
+//    Agent a = new AStar();
     public static BiFunction<Point, Point, Double> euclideanDistance =
             (Point p1, Point p2) -> Math.hypot(p1.x - p2.x, p1.y - p2.y);
     public static BiFunction<Point, Point, Double> manhattanDistance =
@@ -240,34 +240,11 @@ public class puzzleGame {
     public void solveMethod(String arr1, int[] arr, String method) {
         solving(arr1);
         System.out.println(method);
-        switch (method) {
-            case "BFS" -> {
-                b.solve(arr);
-                puzz = b.res;
-                System.out.println("BFS");
-                ctr = b.res.size() - 1;
-            }
-            case "DFS" -> {
-                d.solve(arr);
-                System.out.println("DFS");
-                puzz = d.res;
-                ctr = d.res.size() - 1;
-            }
-            case "A* using Euclidean" -> {
-                System.out.println("eu");
-                a.setHeuristicFunction(euclideanDistance);
-                a.solve(arr);
-                puzz = a.res;
-                ctr = a.res.size() - 1;
-            }
-            case "A* using Manhattan" -> {
-                System.out.println("man");
-                a.setHeuristicFunction(manhattanDistance);
-                a.solve(arr);
-                puzz = a.res;
-                ctr = a.res.size() - 1;
-            }
-        }
+        Agent agent = AgentFactory.agentMaker(method);
+        agent.solve(arr);
+        puzz = agent.res;
+        ctr = agent.res.size() - 1;
+        System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
             label2.setText("The depth = "+Integer.toString(puzz.get(0).getDepth()));
