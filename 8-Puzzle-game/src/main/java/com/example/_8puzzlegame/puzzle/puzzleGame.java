@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import javafx.scene.control.ScrollPane;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.function.BiFunction;
@@ -124,12 +124,74 @@ public class puzzleGame {
         prev.setLayoutY(600);
         prev.setOnMouseClicked(e -> updateCtr(1));
 
+        //button of puzzle entrance
+        Button hist = new Button("View Path");
+        hist.setLayoutX(700);
+        hist.setLayoutY(600);
+        hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, combo_box, next, prev);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, combo_box, next, prev,hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void pathWindow(){
+        Stage stage = new Stage();
+        ScrollPane pane = new ScrollPane();
+        int h = 500;
+        int w = 500;
+        VBox root = new VBox();
+        root.setSpacing(10);
+        root.setPadding(new Insets(10));
+
+        for (int k=puzz.size()-1;k>=0;k--) {
+            GridPane grid = new GridPane();
+            grid = createNewGridPane(60+k*150);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (puzz.get(k).puzzle[j + 3 * i] != 0) {
+                        ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
+                        grid.add(imageView,j,i);
+                    }
+                }
+            }
+            LinkedList<GridPane> v = new LinkedList<>();
+            root.getChildren().add(grid);
+
+        }
+        pane.setContent(root);
+        //  pane.setContent();
+       // pane.setBackground(SKY_BLUE);
+        Scene scene = new Scene(pane, w, h);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public GridPane createNewGridPane(int y){
+        GridPane grid = new GridPane();
+        grid.getChildren().clear();
+        grid.setDisable(false);
+        grid.setLayoutY(y);
+        // Properties for the GridPane
+        grid.setPadding(new Insets(40, 40, 40, 70));
+        grid.setHgap(1);
+        grid.setVgap(1);
+        grid.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0), new CornerRadii(1), new Insets(30, 30, 30, 60))));
+
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                // For the Background Colors
+                StackPane field = new StackPane();
+                field.setMinWidth(20);
+                field.setMinHeight(20);
+                field.setBackground(White);
+                grid.add(field, i, j);
+            }
+        }
+        return grid;
     }
 
     private void startNew() {
@@ -262,6 +324,20 @@ public class puzzleGame {
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(120);
         imageView.setFitHeight(100);
+        return imageView;
+    }
+
+    private void updateUXPath(int i, int j, int index) {
+        ImageView imageView = getSpirit(index);
+        gridPane.add(imageView, j, i);
+    }
+    private ImageView getSpiritPath(int i) {
+
+        String location = String.format("file:src/main/resources/" + "%s.png", i);
+        Image image = new Image(location);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(17);
         return imageView;
     }
 }
