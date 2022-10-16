@@ -1,23 +1,26 @@
 package com.example._8puzzlegame.SearchAgent;
+
 import com.example._8puzzlegame.StateNode.Node;
+import com.example._8puzzlegame.SearchAgent.Agent;
+
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.function.BiFunction;
 
-public class AStar extends Agent{
+public class AStar extends Agent {
 
     private BiFunction<Point, Point, Double> heuristicFunction;
+
     @Override
-    public List<Node> solve(int[] startState) {
+    public void solve(int[] startState) {
         Node root = new Node(startState);
         PriorityQueue<Node> pq = new PriorityQueue<>((Node n1, Node n2) ->
                 Double.compare(n1.getDepth() + calculateHeuristic(n1.puzzle), n2.getDepth() + calculateHeuristic(n2.puzzle)));
-        Set<int[]> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
         pq.add(root);
-        boolean found = false;
 
-        while (!pq.isEmpty() && !found) {
+        long start = System.currentTimeMillis();
+        while (!pq.isEmpty()) {
             Node state = pq.poll();
 
             if (state.goalTest()) {
@@ -25,15 +28,22 @@ public class AStar extends Agent{
                 break;
             }
 
-            if (!visited.contains(state.puzzle)) {
-                visited.add(state.puzzle);
+            if (!visited.contains(Arrays.toString(state.puzzle))) {
+                visited.add(Arrays.toString(state.puzzle));
                 state.expand();
+                this.maxDepth = Math.max(this.maxDepth, state.getDepth());
                 pq.addAll(state.getChildren());
             }
         }
-        return tracePath(goal);
-    }
+        long executionTime = System.currentTimeMillis() - start;
+        //return tracePath(goal);
+        if (goal != null) {
+            tracePath(goal);
+            System.out.println("Time taken by SearchAgent AStar " + executionTime + " ms");
+        } else
+            System.out.println(" Not solvable Example  !!!! ");
 
+    }
 
     public void setHeuristicFunction(BiFunction<Point, Point, Double> hFn) {
         heuristicFunction = hFn;

@@ -19,7 +19,7 @@ public abstract class Agent {
         nodesExpanded = 0;
     }
 
-    public abstract List<Node> solve(int[] startState);
+    public abstract void solve(int[] startState);
 
     public void expand(Node state) {
         nodesExpanded += state.expand();
