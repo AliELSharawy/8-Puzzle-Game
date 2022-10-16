@@ -152,8 +152,9 @@ public class puzzleGame {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (puzz.get(k).puzzle[j + 3 * i] != 0) {
-                        ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
-                        grid.add(imageView,j,i);
+                        //ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
+                        Label label = new Label(String.valueOf(puzz.get(k).puzzle[j + 3 * i]));
+                        grid.add(label,j,i);
                     }
                 }
             }
