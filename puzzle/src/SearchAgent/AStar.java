@@ -30,6 +30,7 @@ public class AStar extends Agent {
             if (!visited.contains(Arrays.toString(state.puzzle))) {
                 visited.add(Arrays.toString(state.puzzle));
                 state.expand();
+                this.maxDepth = Math.max(this.maxDepth, state.getDepth());
                 pq.addAll(state.getChildren());
             }
         }
