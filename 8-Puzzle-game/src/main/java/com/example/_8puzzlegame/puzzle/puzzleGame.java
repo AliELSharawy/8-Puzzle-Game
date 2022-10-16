@@ -25,12 +25,14 @@ import java.util.function.BiFunction;
 
 public class puzzleGame {
 
-    public LinkedList<Node> puzz = new LinkedList<>();//fiha el result
+    public static LinkedList<Node> puzz = new LinkedList<>();//fiha el result
     public final int[] p={0,0,0,0,0,0,0,0,0};//7yt5zn fyha el input array bt3t el user
     private final GridPane gridPane;
     private final DropShadow shadow;
     public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
+
+    public int ctr=puzz.size()-1;
 
     Agent b = new BFS();
     Agent d = new DFS();
@@ -52,7 +54,7 @@ public class puzzleGame {
     }
     private void drawMainWindow(Stage stage) {
         AnchorPane pane = new AnchorPane();
-        int h = 500;
+        int h = 700;
         int w = 1000;
 
 
@@ -75,13 +77,26 @@ public class puzzleGame {
         ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(algo));
         combo_box.setLayoutX(700);
         combo_box.setLayoutY(300);
-        //button of puzzle entrance
+        //button of puzzle start solving
         Button start = new Button("Solve :)");
         start.setLayoutX(700);
         start.setLayoutY(400);
         start.setOnMouseClicked(e -> solveMethod(p, (String) combo_box.getValue()));
 
-        pane.getChildren().addAll(gridPane,text,puzzleEnter,start,combo_box);
+        //button of puzzle entrance
+        Button next = new Button("Next");
+        next.setLayoutX(400);
+        next.setLayoutY(600);
+        next.setOnMouseClicked(e -> updateCtr(-1));
+
+        //button of puzzle entrance
+        Button prev = new Button("Prev");
+        prev.setLayoutX(100);
+        prev.setLayoutY(600);
+        prev.setOnMouseClicked(e ->updateCtr(1));
+
+
+        pane.getChildren().addAll(gridPane,text,puzzleEnter,start,combo_box,next,prev);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -93,6 +108,27 @@ public class puzzleGame {
         board = new puzzleBoard();
     }
 
+    public void updateCtr(int go){
+        if(go==-1&&ctr>=1){
+            ctr--;
+            System.out.println(puzz.size());
+            next(puzz.get(ctr));
+        }else if(go==1&&ctr<=puzz.size()-2){
+            ctr++;
+            next(puzz.get(ctr));
+        }
+    }
+    public void next(Node n){
+
+        drawGridPane();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (n.puzzle[j + 3 * i] != 0) {
+                    updateUX(i, j, n.puzzle[j + 3 * i]);
+                }
+            }
+        }
+    }
     public void solving(String arr){
         int[] arr1=new int[9];
         for(int i=0;i<arr.length();i++){
@@ -115,17 +151,21 @@ public class puzzleGame {
             case "BFS" :
                 b.solve(arr);
                 puzz=b.res;
+                ctr=b.res.size()-1;
             case "DFS" :
                 d.solve(arr);
                 puzz=b.res;
+                ctr=b.res.size()-1;
             case "A* using Euclidean" :
                 a.setHeuristicFunction(euclideanDistance);
                 a.solve(arr);
                 puzz=b.res;
+                ctr=b.res.size()-1;
             case "A* using Manhattan" :
                 a.setHeuristicFunction(manhattanDistance);
                 a.solve(arr);
                 puzz=b.res;
+                ctr=b.res.size()-1;
 
         }
     }
@@ -155,27 +195,6 @@ public class puzzleGame {
             }
         }
 
-
-
-//            if(k!=0) {
-//                gridPane.getChildren().clear();
-//                gridPane.setDisable(false);
-//                gridPane.setLayoutY(60);
-//                // Properties for the GridPane
-//                gridPane.setPadding(new Insets(40, 40, 40, 70));
-//                gridPane.setHgap(1);
-//                gridPane.setVgap(1);
-//                for (int i = 0; i < 3; i++) {
-//                    for (int j = 0; j < 3; j++) {
-//                        // For the Background Colors
-//                        StackPane field = new StackPane();
-//                        field.setMinWidth(120);
-//                        field.setMinHeight(120);
-//                        field.setBackground(White);
-//                        gridPane.add(field, i, j);
-//                    }
-//                }
-//            }
 
 
     }
