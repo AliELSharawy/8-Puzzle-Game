@@ -23,6 +23,7 @@ public class AStar extends Agent {
         while (!pq.isEmpty()) {
             Node state = pq.poll();
 
+            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
             if (state.goalTest()) {
                 goal = state;
                 break;
@@ -31,7 +32,6 @@ public class AStar extends Agent {
             if (!visited.contains(Arrays.toString(state.puzzle))) {
                 visited.add(Arrays.toString(state.puzzle));
                 state.expand();
-                this.maxDepth = Math.max(this.maxDepth, state.getDepth());
                 pq.addAll(state.getChildren());
             }
         }

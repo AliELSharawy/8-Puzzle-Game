@@ -60,6 +60,11 @@ public class puzzleGame {
 
         drawGridPane();
 
+         //this one
+        Label label = new Label("Enter Your  initial Puzzle that form 1253406789 ");
+        label.setLocation(700,90);
+
+
         //text
         TextField text=new TextField("Enter puzzle");
         text.setLayoutX(700);

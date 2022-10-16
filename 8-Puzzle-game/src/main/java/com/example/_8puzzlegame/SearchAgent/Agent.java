@@ -43,6 +43,7 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
+        System.out.println( "maxDepth : " + getMaxDepth());
         res=p;
         return p;
     }

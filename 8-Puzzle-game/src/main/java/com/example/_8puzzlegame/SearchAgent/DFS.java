@@ -1,4 +1,5 @@
 package com.example._8puzzlegame.SearchAgent;
+
 import com.example._8puzzlegame.StateNode.Node;
 
 import java.util.*;
@@ -11,40 +12,37 @@ public class DFS extends Agent {
         Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
         Set<String> visited = new HashSet<>();
-
-
         stack.push(root);
-        boolean found = false;
+
         long start = System.currentTimeMillis();
 
-        while (!stack.isEmpty() && !found) {
+        while (!stack.isEmpty()) {
             Node state = stack.pop();
             visited.add(Arrays.toString(state.puzzle));
-            state.expand();
-            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
 
+            this.maxDepth = Math.max(this.maxDepth, state.getDepth());
             if (state.goalTest()) {
                 System.out.println("Goal Found");
-                found = true;
                 goal = state;
+                break;
             }
+
+
+            state.expand();
+
             for (Node child : state.getChildren()) {
-                if (!visited.contains(Arrays.toString(child.puzzle))){
+                if (!visited.contains(Arrays.toString(child.puzzle))) {
                     stack.add(child);
                 }
-
             }
 
         }
         long executionTime = System.currentTimeMillis() - start;
 
-
-        //return tracePath(goal);
-        if(goal !=null){
+        if (goal != null) {
             tracePath(goal);
             System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");
-        }
-        else
+        } else
             System.out.println(" Not solvable Example  !!!! ");
     }
 
