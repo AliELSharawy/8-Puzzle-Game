@@ -134,7 +134,7 @@ public class puzzleGame {
         for(int i=0;i<arr.length();i++){
             arr1[i] = (arr.charAt(i)-'0');
         }
-
+        drawGridPane();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (arr1[j + 3 * i] != 0) {
@@ -146,33 +146,42 @@ public class puzzleGame {
     }
 
     public void solveMethod(int[] arr, String method){
-        System.out.println(arr[0]);
+        System.out.println(method);
+
         switch (method) {
             case "BFS" :
                 b.solve(arr);
                 puzz=b.res;
+                System.out.println("BFS");
                 ctr=b.res.size()-1;
+                break;
             case "DFS" :
                 d.solve(arr);
-                puzz=b.res;
-                ctr=b.res.size()-1;
+                System.out.println("DFS");
+                puzz=d.res;
+                ctr=d.res.size()-1;
+                break;
             case "A* using Euclidean" :
+                System.out.println("eu");
                 a.setHeuristicFunction(euclideanDistance);
                 a.solve(arr);
-                puzz=b.res;
-                ctr=b.res.size()-1;
+                puzz=a.res;
+                ctr=a.res.size()-1;
+                break;
             case "A* using Manhattan" :
+                System.out.println("man");
                 a.setHeuristicFunction(manhattanDistance);
                 a.solve(arr);
-                puzz=b.res;
-                ctr=b.res.size()-1;
+                puzz=a.res;
+                ctr=a.res.size()-1;
+                break;
 
         }
     }
 
 
 
-    private void drawGridPane() {
+    private void drawGridPane() {//btfady w trsm l grid mn awl w gded
         // Clear all
         gridPane.getChildren().clear();
         gridPane.setDisable(false);
