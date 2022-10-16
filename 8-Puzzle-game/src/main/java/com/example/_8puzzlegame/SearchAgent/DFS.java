@@ -28,7 +28,7 @@ public class DFS extends Agent {
             }
 
 
-            state.expand();
+            expand(state);
 
             for (Node child : state.getChildren()) {
                 if (!visited.contains(Arrays.toString(child.puzzle))) {
