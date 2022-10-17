@@ -273,6 +273,7 @@ public class puzzleGame {
     public void solveMethod(String arr1, int[] arr, String method) {
         solving(arr1);
         System.out.println(method);
+        label2.setTextFill(Color.web("#664d00"));
         Agent agent = AgentFactory.agentMaker(method);
         agent.solve(arr);
         puzz = agent.res;
@@ -281,12 +282,16 @@ public class puzzleGame {
         System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
-            label2.setText("Max depth = "+Integer.toString(puzz.get(0).getDepth()));
+            label2.setText("Max depth = "+Integer.toString(agent.getMaxDepth()));
             label3.setText("#no of nodes =" + Integer.toString(noNodes));
             label4.setText("Cost/Depth =" + Integer.toString(puzz.size()-1));
-            noNodes=0;
-        }
 
+        }else{
+            label2.setTextFill(Color.web("#ff0000"));
+            label2.setText(" Not solvable Example !!!! ");
+
+        }
+        noNodes=0;
     }
 
 
