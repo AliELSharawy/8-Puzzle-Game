@@ -1,8 +1,6 @@
 package com.example._8puzzlegame.SearchAgent;
 
 import com.example._8puzzlegame.StateNode.Node;
-import com.example._8puzzlegame.SearchAgent.Agent;
-
 import java.awt.*;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -11,8 +9,7 @@ public class AStar extends Agent {
 
     private BiFunction<Point, Point, Double> heuristicFunction;
 
-    public AStar() {
-    }
+
 
     public AStar(BiFunction<Point, Point, Double> hFn) {
         heuristicFunction = hFn;

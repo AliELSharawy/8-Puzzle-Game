@@ -2,10 +2,8 @@ package com.example._8puzzlegame.SearchAgent;
 
 import com.example._8puzzlegame.StateNode.Node;
 
-import java.awt.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.function.BiFunction;
+
 
 public abstract class Agent {
     protected Node goal;
@@ -26,13 +24,13 @@ public abstract class Agent {
         nodesExpanded += state.expand();
     }
 
-    public List<Node> tracePath(Node n) {
+    public void tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
         p.add(curr);
 
-        while (curr.parent != null) {
-            curr = curr.parent;
+        while (curr.getParent() != null) {
+            curr = curr.getParent();
             p.add(curr);
         }
 
@@ -48,7 +46,7 @@ public abstract class Agent {
         System.out.println("maxDepth : " + getMaxDepth());
         System.out.println("nodes" + getNodesExpanded());
         res = p;
-        return p;
+
     }
 
     public int getDepth() {
@@ -63,6 +61,4 @@ public abstract class Agent {
         return nodesExpanded;
     }
 
-    public void setHeuristicFunction(BiFunction<Point, Point, Double> euclideanDistance) {
-    }
 }

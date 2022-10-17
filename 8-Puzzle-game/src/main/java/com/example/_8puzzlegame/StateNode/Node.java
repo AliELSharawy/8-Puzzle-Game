@@ -1,6 +1,5 @@
 package com.example._8puzzlegame.StateNode;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,16 +54,6 @@ public class Node {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Node))
-            return false;
-        if (o == this)
-            return true;
-
-        Node node = (Node) o;
-        return Arrays.equals(node.puzzle, this.puzzle);
-    }
     public int offset(char c) {
         return switch (c) {
             case 'u' -> -3;
@@ -84,7 +73,7 @@ public class Node {
 
     public int move(int[] p, int i, char direction) {
         int offset = offset(direction);
-        if (isValid(i, direction)) {
+        if (isValid(direction)) {
             //System.out.print(" " + direction + " ");
             int[] pc = swap(p, i, i + offset);
             insert(pc);
@@ -102,7 +91,7 @@ public class Node {
         return pc;
     }
 
-    private boolean isValid(int i, char direction) {
+    private boolean isValid(char direction) {
 
         return switch (direction) {
             // if 2 or 5 or 8 can't move to right which % 3 =2
@@ -141,22 +130,15 @@ public class Node {
     //goal test check if number in the list is not in ascending order this means it's not int the goal
 
     //0 1 2 3 4 5 6 7 8
-    public boolean goalTest(){
+    public boolean goalTest() {
         int prev = puzzle[0];
-        for(int i = 1; i < puzzle.length; i++){
-            if(prev > puzzle[i])
+        for (int i = 1; i < puzzle.length; i++) {
+            if (prev > puzzle[i])
                 return false;
             prev = puzzle[i];
         }
         return true;
     }
 
-    /*public void print(){
-        for(Node child:getChildren()){
-            for(int i=0;i<puzzle.length;i++){
-                System.out.print(child.puzzle[i]+" ");
-                if(i%3==2)
-                    System.out.println();
-      }*/
 
 }

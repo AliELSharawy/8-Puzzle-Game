@@ -1,9 +1,6 @@
 package com.example._8puzzlegame.puzzle;
 
-import com.example._8puzzlegame.SearchAgent.AStar;
 import com.example._8puzzlegame.SearchAgent.Agent;
-import com.example._8puzzlegame.SearchAgent.BFS;
-import com.example._8puzzlegame.SearchAgent.DFS;
 import com.example._8puzzlegame.StateNode.Node;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
@@ -14,7 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -30,34 +26,31 @@ import java.util.function.BiFunction;
 
 public class puzzleGame {
 
-    public static LinkedList<Node> puzz = new LinkedList<>();//fiha el result
-    public final int[] p = {0, 0, 0, 0, 0, 0, 0, 0, 0};//7yt5zn fyha el input array bt3t el user
+    public static LinkedList<Node> puzz = new LinkedList<>();//contains the result
+    public final int[] p = {0, 0, 0, 0, 0, 0, 0, 0, 0};// store the input array of the user 
     private final GridPane gridPane;
     public Label label2;//max depth
     public Label label3;//no nodes
     public Label label4;//depth/cost
     public int noNodes = 0;
 
-    private final DropShadow shadow;
+
     public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
     public int ctr = puzz.size() - 1;
 
-    //    Agent b = new BFS();
-//    Agent d = new DFS();
-//    Agent a = new AStar();
+
     public static BiFunction<Point, Point, Double> euclideanDistance =
             (Point p1, Point p2) -> Math.hypot(p1.x - p2.x, p1.y - p2.y);
     public static BiFunction<Point, Point, Double> manhattanDistance =
             (Point p1, Point p2) -> Double.valueOf(Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y));
 
-    private puzzleBoard board;
+
 
     public puzzleGame() {
         this.gridPane = new GridPane();
-        this.shadow = new DropShadow();
-        this.board = new puzzleBoard();
+
     }
 
     public void startPlaying(Stage stage) {
@@ -104,7 +97,7 @@ public class puzzleGame {
         //dropdown list
         String[] algo = {"BFS", "DFS", "A* using Euclidean", "A* using Manhattan"};
 
-        ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(algo));
+        ComboBox<String> combo_box = new ComboBox<>(FXCollections.observableArrayList(algo));
         combo_box.setLayoutX(500);
         combo_box.setLayoutY(320);
         combo_box.getSelectionModel().selectFirst();
@@ -115,7 +108,7 @@ public class puzzleGame {
         start.setLayoutX(550);
         start.setLayoutY(360);
 
-        start.setOnMouseClicked(e -> solveMethod(text.getText(), p, (String) combo_box.getValue()));
+        start.setOnMouseClicked(e -> solveMethod(text.getText(), p, combo_box.getValue()));
 
         label2 = new Label();
         label2.setLayoutX(500);
@@ -176,12 +169,11 @@ public class puzzleGame {
         root.setPadding(new Insets(10));
 
         for (int k = puzz.size() - 1; k >= 0; k--) {
-            GridPane grid = new GridPane();
-            grid = createNewGridPane(60 + k * 130);
+            //GridPane grid = new GridPane();
+            GridPane grid = createNewGridPane(60 + k * 130);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (puzz.get(k).puzzle[j + 3 * i] != 0) {
-                        //ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
                         Label label = new Label(String.valueOf(puzz.get(k).puzzle[j + 3 * i]));
                         label.setTextFill(Color.ORANGE);
                         Font font = Font.font("Verdana", FontWeight.BOLD, 15);
@@ -196,8 +188,6 @@ public class puzzleGame {
 
         }
         pane.setContent(root);
-        //  pane.setContent();
-        // pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
@@ -228,10 +218,7 @@ public class puzzleGame {
         return grid;
     }
 
-    private void startNew() {
-        drawGridPane();
-        board = new puzzleBoard();
-    }
+
 
     public void updateCtr(int go) {
         if (go == -1 && ctr >= 1) {
@@ -283,20 +270,20 @@ public class puzzleGame {
         System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
-            label2.setText("Max depth = " + Integer.toString(agent.getMaxDepth()));
-            label3.setText("#no of nodes =" + Integer.toString(noNodes));
-            label4.setText("Cost/Depth =" + Integer.toString(puzz.size() - 1));
-
+            label2.setText("Max depth = " + agent.getMaxDepth());
+            label3.setText("#no of nodes =" + noNodes);
+            label4.setText("Cost/Depth =" + agent.getDepth());
         } else {
             label2.setTextFill(Color.web("#ff0000"));
             label2.setText(" Not solvable Example !!!! ");
 
         }
+
         noNodes = 0;
     }
 
 
-    private void drawGridPane() {//btfady w trsm l grid mn awl w gded
+    private void drawGridPane() {// clean and draw the grid again 
         // Clear all
         gridPane.getChildren().clear();
         gridPane.setDisable(false);
@@ -322,15 +309,7 @@ public class puzzleGame {
 
     }
 
-    public void solvePuzzle(Node res) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (res.puzzle[j + 3 * i] != 0) {
-                    updateUX(i, j, res.puzzle[j + 3 * i]);
-                }
-            }
-        }
-    }
+
 
     private void updateUX(int i, int j, int index) {
         ImageView imageView = getSpirit(index);
@@ -347,18 +326,5 @@ public class puzzleGame {
         return imageView;
     }
 
-    private void updateUXPath(int i, int j, int index) {
-        ImageView imageView = getSpirit(index);
-        gridPane.add(imageView, j, i);
-    }
 
-    private ImageView getSpiritPath(int i) {
-
-        String location = String.format("file:src/main/resources/" + "%s.png", i);
-        Image image = new Image(location);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(17);
-        return imageView;
-    }
 }

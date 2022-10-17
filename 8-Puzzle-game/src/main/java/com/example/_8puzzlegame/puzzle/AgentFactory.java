@@ -6,7 +6,7 @@ import com.example._8puzzlegame.SearchAgent.BFS;
 import com.example._8puzzlegame.SearchAgent.DFS;
 
 public class AgentFactory {
-    public static Agent agentMaker(String agentName){
+    public static Agent agentMaker(String agentName) {
         switch (agentName) {
             case "BFS" -> {
                 return new BFS();
@@ -15,10 +15,10 @@ public class AgentFactory {
                 return new DFS();
             }
             case "A* using Euclidean" -> {
-               return new AStar(puzzleGame.euclideanDistance);
+                return new AStar(puzzleGame.euclideanDistance);
             }
             case "A* using Manhattan" -> {
-               return new AStar(puzzleGame.manhattanDistance);
+                return new AStar(puzzleGame.manhattanDistance);
             }
             default -> {
                 return null;
