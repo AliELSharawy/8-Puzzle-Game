@@ -6,6 +6,7 @@ import com.example._8puzzlegame.SearchAgent.BFS;
 import com.example._8puzzlegame.SearchAgent.DFS;
 import com.example._8puzzlegame.StateNode.Node;
 import javafx.collections.FXCollections;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 import java.awt.*;
@@ -30,7 +32,10 @@ public class puzzleGame {
     public static LinkedList<Node> puzz = new LinkedList<>();//fiha el result
     public final int[] p = {0, 0, 0, 0, 0, 0, 0, 0, 0};//7yt5zn fyha el input array bt3t el user
     private final GridPane gridPane;
-    public Label label2;
+    public Label label2;//max depth
+    public Label label3;//no nodes
+    public int noNodes=0;
+
     private final DropShadow shadow;
     public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
@@ -112,6 +117,12 @@ public class puzzleGame {
         label2.setTextFill(Color.web("#2980B9"));
         label2.setFont(new Font("Cambria", 25));
 
+        label3= new Label();
+        label3.setLayoutX(700);
+        label3.setLayoutY(550);
+        label3.setTextFill(Color.web("#2980B9"));
+        label3.setFont(new Font("Cambria", 25));
+
         //button of puzzle entrance
         Button next = new Button("Next");
         next.setLayoutX(400);
@@ -130,7 +141,7 @@ public class puzzleGame {
         hist.setLayoutY(600);
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, combo_box, next, prev,hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2,label3, combo_box, next, prev,hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -148,23 +159,27 @@ public class puzzleGame {
 
         for (int k=puzz.size()-1;k>=0;k--) {
             GridPane grid = new GridPane();
-            grid = createNewGridPane(60+k*150);
+            grid = createNewGridPane(60+k*130);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (puzz.get(k).puzzle[j + 3 * i] != 0) {
                         //ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
                         Label label = new Label(String.valueOf(puzz.get(k).puzzle[j + 3 * i]));
+                        label.setTextFill(Color.ORANGE);
+                        Font font = Font.font("Verdana", FontWeight.BOLD, 15);
+                        label.setFont(font);
+                        GridPane.setHalignment(label, HPos.CENTER);
+
                         grid.add(label,j,i);
                     }
                 }
             }
-            LinkedList<GridPane> v = new LinkedList<>();
             root.getChildren().add(grid);
 
         }
         pane.setContent(root);
         //  pane.setContent();
-       // pane.setBackground(SKY_BLUE);
+        // pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
@@ -245,10 +260,13 @@ public class puzzleGame {
         agent.solve(arr);
         puzz = agent.res;
         ctr = agent.res.size() - 1;
+        noNodes=agent.getNodesExpanded();
         System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
-            label2.setText("The depth = "+Integer.toString(puzz.get(0).getDepth()));
+            label2.setText("Max depth = "+Integer.toString(puzz.get(0).getDepth()));
+            label3.setText("#no of nodes =" + Integer.toString(noNodes));
+            noNodes=0;
         }
 
     }
