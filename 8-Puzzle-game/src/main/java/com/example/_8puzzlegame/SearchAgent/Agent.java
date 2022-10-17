@@ -1,4 +1,5 @@
 package com.example._8puzzlegame.SearchAgent;
+
 import com.example._8puzzlegame.StateNode.Node;
 
 import java.awt.*;
@@ -44,9 +45,9 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
-        System.out.println( "maxDepth : " + getMaxDepth());
-        System.out.println("nodes"+getNodesExpanded());
-        res=p;
+        System.out.println("maxDepth : " + getMaxDepth());
+        System.out.println("nodes" + getNodesExpanded());
+        res = p;
         return p;
     }
 

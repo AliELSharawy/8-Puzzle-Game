@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.function.BiFunction;
@@ -35,7 +36,7 @@ public class puzzleGame {
     public Label label2;//max depth
     public Label label3;//no nodes
     public Label label4;//depth/cost
-    public int noNodes=0;
+    public int noNodes = 0;
 
     private final DropShadow shadow;
     public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
@@ -43,7 +44,7 @@ public class puzzleGame {
 
     public int ctr = puzz.size() - 1;
 
-//    Agent b = new BFS();
+    //    Agent b = new BFS();
 //    Agent d = new DFS();
 //    Agent a = new AStar();
     public static BiFunction<Point, Point, Double> euclideanDistance =
@@ -89,7 +90,7 @@ public class puzzleGame {
         Button puzzleEnter = new Button("Enter Puzzle :)");
         puzzleEnter.setLayoutX(530);
         puzzleEnter.setLayoutY(150);
-        puzzleEnter.setMinSize(30,30);
+        puzzleEnter.setMinSize(30, 30);
         puzzleEnter.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         puzzleEnter.setOnMouseClicked(e -> solving(text.getText()));
 
@@ -109,26 +110,26 @@ public class puzzleGame {
         combo_box.getSelectionModel().selectFirst();
         //button of puzzle start solving
         Button start = new Button("Solve :)");
-        start.setMinSize(30,30);
+        start.setMinSize(30, 30);
         start.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         start.setLayoutX(550);
         start.setLayoutY(360);
 
         start.setOnMouseClicked(e -> solveMethod(text.getText(), p, (String) combo_box.getValue()));
 
-        label2= new Label();
+        label2 = new Label();
         label2.setLayoutX(500);
         label2.setLayoutY(440);
         label2.setTextFill(Color.web("#664d00"));
         label2.setFont(new Font("Cambria", 18));
 
-        label3= new Label();
+        label3 = new Label();
         label3.setLayoutX(500);
         label3.setLayoutY(460);
         label3.setTextFill(Color.web("#664d00"));
         label3.setFont(new Font("Cambria", 18));
 
-        label4= new Label();
+        label4 = new Label();
         label4.setLayoutX(500);
         label4.setLayoutY(480);
         label4.setTextFill(Color.web("#664d00"));
@@ -138,7 +139,7 @@ public class puzzleGame {
         Button next = new Button("Next");
         next.setLayoutX(370);
         next.setLayoutY(500);
-        next.setMinSize(60,60);
+        next.setMinSize(60, 60);
         next.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         next.setOnMouseClicked(e -> updateCtr(-1));
 
@@ -146,7 +147,7 @@ public class puzzleGame {
         Button prev = new Button("Prev");
         prev.setLayoutX(70);
         prev.setLayoutY(500);
-        prev.setMinSize(60,60);
+        prev.setMinSize(60, 60);
         prev.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         prev.setOnMouseClicked(e -> updateCtr(1));
 
@@ -154,18 +155,18 @@ public class puzzleGame {
         Button hist = new Button("View Path");
         hist.setLayoutX(542);
         hist.setLayoutY(400);
-        hist.setMinSize(30,30);
+        hist.setMinSize(30, 30);
         hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2,label3,label4, combo_box, next, prev,hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void pathWindow(){
+    public void pathWindow() {
         Stage stage = new Stage();
         ScrollPane pane = new ScrollPane();
         int h = 500;
@@ -174,9 +175,9 @@ public class puzzleGame {
         root.setSpacing(10);
         root.setPadding(new Insets(10));
 
-        for (int k=puzz.size()-1;k>=0;k--) {
+        for (int k = puzz.size() - 1; k >= 0; k--) {
             GridPane grid = new GridPane();
-            grid = createNewGridPane(60+k*130);
+            grid = createNewGridPane(60 + k * 130);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (puzz.get(k).puzzle[j + 3 * i] != 0) {
@@ -187,7 +188,7 @@ public class puzzleGame {
                         label.setFont(font);
                         GridPane.setHalignment(label, HPos.CENTER);
 
-                        grid.add(label,j,i);
+                        grid.add(label, j, i);
                     }
                 }
             }
@@ -202,7 +203,7 @@ public class puzzleGame {
         stage.show();
     }
 
-    public GridPane createNewGridPane(int y){
+    public GridPane createNewGridPane(int y) {
         GridPane grid = new GridPane();
         grid.getChildren().clear();
         grid.setDisable(false);
@@ -278,20 +279,20 @@ public class puzzleGame {
         agent.solve(arr);
         puzz = agent.res;
         ctr = agent.res.size() - 1;
-        noNodes=agent.getNodesExpanded();
+        noNodes = agent.getNodesExpanded();
         System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
-            label2.setText("Max depth = "+Integer.toString(agent.getMaxDepth()));
+            label2.setText("Max depth = " + Integer.toString(agent.getMaxDepth()));
             label3.setText("#no of nodes =" + Integer.toString(noNodes));
-            label4.setText("Cost/Depth =" + Integer.toString(puzz.size()-1));
+            label4.setText("Cost/Depth =" + Integer.toString(puzz.size() - 1));
 
-        }else{
+        } else {
             label2.setTextFill(Color.web("#ff0000"));
             label2.setText(" Not solvable Example !!!! ");
 
         }
-        noNodes=0;
+        noNodes = 0;
     }
 
 
@@ -350,6 +351,7 @@ public class puzzleGame {
         ImageView imageView = getSpirit(index);
         gridPane.add(imageView, j, i);
     }
+
     private ImageView getSpiritPath(int i) {
 
         String location = String.format("file:src/main/resources/" + "%s.png", i);

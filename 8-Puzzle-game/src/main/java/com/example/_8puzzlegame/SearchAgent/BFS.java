@@ -15,7 +15,7 @@ public class BFS extends Agent {
 
         long start = System.currentTimeMillis();
 
-        while (!queue.isEmpty() ) {
+        while (!queue.isEmpty()) {
             Node state = queue.poll();
             visited.add(Arrays.toString(state.puzzle));
 

@@ -11,7 +11,8 @@ public class AStar extends Agent {
 
     private BiFunction<Point, Point, Double> heuristicFunction;
 
-    public AStar(){}
+    public AStar() {
+    }
 
     public AStar(BiFunction<Point, Point, Double> hFn) {
         heuristicFunction = hFn;
