@@ -34,6 +34,7 @@ public class puzzleGame {
     private final GridPane gridPane;
     public Label label2;//max depth
     public Label label3;//no nodes
+    public Label label4;//depth/cost
     public int noNodes=0;
 
     private final DropShadow shadow;
@@ -64,8 +65,8 @@ public class puzzleGame {
 
     private void drawMainWindow(Stage stage) {
         AnchorPane pane = new AnchorPane();
-        int h = 700;
-        int w = 1000;
+        int h = 600;
+        int w = 700;
 
 
         drawGridPane();
@@ -73,75 +74,91 @@ public class puzzleGame {
 
         //text
         TextField text = new TextField("Enter puzzle");
-        text.setLayoutX(700);
-        text.setLayoutY(100);
+        text.setLayoutX(500);
+        text.setLayoutY(120);
 
         //this one
-        Label label = new Label("Enter Your Puzzle in that form 125340678 ");
+        Label label = new Label("Enter Your Puzzle in\nthat form 125340678 ");
         label.setLayoutY(75);
-        label.setLayoutX(660);
-        label.setTextFill(Color.web("#CA3433"));
+        label.setLayoutX(500);
+        label.setTextFill(Color.web("#664d00"));
         label.setFont(new Font("Cambria", 15));
 
 
         //button of puzzle entrance
         Button puzzleEnter = new Button("Enter Puzzle :)");
-        puzzleEnter.setLayoutX(700);
-        puzzleEnter.setLayoutY(130);
+        puzzleEnter.setLayoutX(530);
+        puzzleEnter.setLayoutY(150);
+        puzzleEnter.setMinSize(30,30);
+        puzzleEnter.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         puzzleEnter.setOnMouseClicked(e -> solving(text.getText()));
 
         //
-        Label label1 = new Label("choose the search method");
-        label1.setLayoutX(685);
+        Label label1 = new Label("Choose Search Method");
+        label1.setLayoutX(500);
         label1.setLayoutY(280);
-        label1.setTextFill(Color.web("#CA3433"));
+        label1.setTextFill(Color.web("#664d00"));
         label1.setFont(new Font("Cambria", 15));
 
         //dropdown list
         String[] algo = {"BFS", "DFS", "A* using Euclidean", "A* using Manhattan"};
 
         ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(algo));
-        combo_box.setLayoutX(700);
-        combo_box.setLayoutY(300);
+        combo_box.setLayoutX(500);
+        combo_box.setLayoutY(320);
         combo_box.getSelectionModel().selectFirst();
         //button of puzzle start solving
         Button start = new Button("Solve :)");
-        start.setLayoutX(700);
-        start.setLayoutY(400);
+        start.setMinSize(30,30);
+        start.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
+        start.setLayoutX(550);
+        start.setLayoutY(360);
 
         start.setOnMouseClicked(e -> solveMethod(text.getText(), p, (String) combo_box.getValue()));
 
         label2= new Label();
-        label2.setLayoutX(700);
-        label2.setLayoutY(500);
-        label2.setTextFill(Color.web("#2980B9"));
-        label2.setFont(new Font("Cambria", 25));
+        label2.setLayoutX(500);
+        label2.setLayoutY(440);
+        label2.setTextFill(Color.web("#664d00"));
+        label2.setFont(new Font("Cambria", 18));
 
         label3= new Label();
-        label3.setLayoutX(700);
-        label3.setLayoutY(550);
-        label3.setTextFill(Color.web("#2980B9"));
-        label3.setFont(new Font("Cambria", 25));
+        label3.setLayoutX(500);
+        label3.setLayoutY(460);
+        label3.setTextFill(Color.web("#664d00"));
+        label3.setFont(new Font("Cambria", 18));
+
+        label4= new Label();
+        label4.setLayoutX(500);
+        label4.setLayoutY(480);
+        label4.setTextFill(Color.web("#664d00"));
+        label4.setFont(new Font("Cambria", 18));
 
         //button of puzzle entrance
         Button next = new Button("Next");
-        next.setLayoutX(400);
-        next.setLayoutY(600);
+        next.setLayoutX(370);
+        next.setLayoutY(500);
+        next.setMinSize(60,60);
+        next.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         next.setOnMouseClicked(e -> updateCtr(-1));
 
         //button of puzzle entrance
         Button prev = new Button("Prev");
-        prev.setLayoutX(100);
-        prev.setLayoutY(600);
+        prev.setLayoutX(70);
+        prev.setLayoutY(500);
+        prev.setMinSize(60,60);
+        prev.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         prev.setOnMouseClicked(e -> updateCtr(1));
 
         //button of puzzle entrance
         Button hist = new Button("View Path");
-        hist.setLayoutX(700);
-        hist.setLayoutY(600);
+        hist.setLayoutX(542);
+        hist.setLayoutY(400);
+        hist.setMinSize(30,30);
+        hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2,label3, combo_box, next, prev,hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2,label3,label4, combo_box, next, prev,hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -266,6 +283,7 @@ public class puzzleGame {
             System.out.println(puzz.get(0).getDepth());
             label2.setText("Max depth = "+Integer.toString(puzz.get(0).getDepth()));
             label3.setText("#no of nodes =" + Integer.toString(noNodes));
+            label4.setText("Cost/Depth =" + Integer.toString(puzz.size()-1));
             noNodes=0;
         }
 
