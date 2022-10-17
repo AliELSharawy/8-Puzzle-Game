@@ -27,7 +27,7 @@ public class BFS extends Agent {
                 break;
             }
 
-            state.expand();
+            expand(state);
 
             for (Node child : state.getChildren()) {
 

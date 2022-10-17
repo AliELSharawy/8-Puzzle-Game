@@ -24,6 +24,7 @@ public abstract class Agent {
     public void expand(Node state) {
         nodesExpanded += state.expand();
     }
+
     public List<Node> tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
@@ -44,6 +45,7 @@ public abstract class Agent {
         }
         System.out.println("cost " + (p.size() - 1));
         System.out.println( "maxDepth : " + getMaxDepth());
+        System.out.println("nodes"+getNodesExpanded());
         res=p;
         return p;
     }
