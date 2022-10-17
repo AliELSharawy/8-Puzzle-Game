@@ -243,7 +243,7 @@ public class puzzleGame {
                     s=Integer.toString(n.puzzle);
                 }
                 if (s.charAt(j + 3 * i) != '0') {
-                    updateUX(i, j, s.charAt(j + 3 * i));
+                    updateUX(i, j, s.charAt(j + 3 * i)-'0');
                 }
             }
         }
