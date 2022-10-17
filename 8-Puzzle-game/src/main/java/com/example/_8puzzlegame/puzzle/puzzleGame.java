@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
 public class puzzleGame {
 
     public static LinkedList<Node> puzz = new LinkedList<>();//contains the result
-    public final int[] p = {0, 0, 0, 0, 0, 0, 0, 0, 0};// store the input array of the user 
+    public String p = "";// store the input array of the user
     private final GridPane gridPane;
     public Label label2;//max depth
     public Label label3;//no nodes
@@ -172,9 +172,10 @@ public class puzzleGame {
             //GridPane grid = new GridPane();
             GridPane grid = createNewGridPane(60 + k * 130);
             for (int i = 0; i < 3; i++) {
+                String puzzleRes = Node.puzzleConvertor(puzz.get(k).puzzle);
                 for (int j = 0; j < 3; j++) {
-                    if (puzz.get(k).puzzle[j + 3 * i] != 0) {
-                        Label label = new Label(String.valueOf(puzz.get(k).puzzle[j + 3 * i]));
+                    if (puzzleRes.charAt(j + 3 * i) != '0') {
+                        Label label = new Label(String.valueOf(puzzleRes.charAt(j + 3 * i)));
                         label.setTextFill(Color.ORANGE);
                         Font font = Font.font("Verdana", FontWeight.BOLD, 15);
                         label.setFont(font);
@@ -235,8 +236,14 @@ public class puzzleGame {
         drawGridPane();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (n.puzzle[j + 3 * i] != 0) {
-                    updateUX(i, j, n.puzzle[j + 3 * i]);
+                String s="";
+                if(Integer.toString(n.puzzle).length()==8){
+                    s="0"+Integer.toString(n.puzzle);
+                }else {
+                    s=Integer.toString(n.puzzle);
+                }
+                if (s.charAt(j + 3 * i) != '0') {
+                    updateUX(i, j, s.charAt(j + 3 * i));
                 }
             }
         }
@@ -244,6 +251,7 @@ public class puzzleGame {
 
     public void solving(String arr) {
         int[] arr1 = new int[9];
+        p = arr;
         for (int i = 0; i < arr.length(); i++) {
             arr1[i] = (arr.charAt(i) - '0');
         }
@@ -253,17 +261,16 @@ public class puzzleGame {
                 if (arr1[j + 3 * i] != 0) {
                     updateUX(i, j, arr1[j + 3 * i]);
                 }
-                p[j + 3 * i] = arr1[j + 3 * i];
             }
         }
     }
 
-    public void solveMethod(String arr1, int[] arr, String method) {
+    public void solveMethod(String arr1, String arr, String method) {
         solving(arr1);
         System.out.println(method);
         label2.setTextFill(Color.web("#664d00"));
         Agent agent = AgentFactory.agentMaker(method);
-        agent.solve(arr);
+        agent.solve(Integer.parseInt(arr));
         puzz = agent.res;
         ctr = agent.res.size() - 1;
         noNodes = agent.getNodesExpanded();
@@ -283,7 +290,7 @@ public class puzzleGame {
     }
 
 
-    private void drawGridPane() {// clean and draw the grid again 
+    private void drawGridPane() {// clean and draw the grid again
         // Clear all
         gridPane.getChildren().clear();
         gridPane.setDisable(false);

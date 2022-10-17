@@ -6,18 +6,21 @@ import java.util.*;
 
 public class BFS extends Agent {
     @Override
-    public void solve(int[] startState) {
+    public void solve(int startState) {
         Node root = new Node(startState);
         Queue<Node> queue = new LinkedList<>();
-        Set<String> visited = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
+        Set<Integer> fringeElements = new HashSet<>();
 
         queue.add(root);
+        fringeElements.add(root.puzzle);
 
         long start = System.currentTimeMillis();
 
         while (!queue.isEmpty()) {
             Node state = queue.poll();
-            visited.add(Arrays.toString(state.puzzle));
+            fringeElements.remove(state.puzzle);
+            visited.add(state.puzzle);
 
             // found goal when dequeue
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
@@ -30,10 +33,10 @@ public class BFS extends Agent {
             expand(state);
 
             for (Node child : state.getChildren()) {
-
-                if (!visited.contains(Arrays.toString(child.puzzle)))
+                if (!visited.contains(child.puzzle) && !fringeElements.contains(child.puzzle)) {
                     queue.add(child); //if not  visited add to closed set
-
+                    fringeElements.add(child.puzzle);
+                }
             }
 
         }

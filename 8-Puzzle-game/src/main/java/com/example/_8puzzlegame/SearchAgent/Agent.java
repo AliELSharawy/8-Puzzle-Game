@@ -5,6 +5,8 @@ import com.example._8puzzlegame.StateNode.Node;
 import java.util.LinkedList;
 
 
+import java.util.LinkedList;
+
 public abstract class Agent {
     protected Node goal;
     public LinkedList<Node> res = new LinkedList<>();
@@ -18,7 +20,7 @@ public abstract class Agent {
         nodesExpanded = 0;
     }
 
-    public abstract void solve(int[] startState);
+    public abstract void solve(int startState);
 
     public void expand(Node state) {
         nodesExpanded += state.expand();
@@ -35,8 +37,9 @@ public abstract class Agent {
         }
 
         for (int i = p.size() - 1; i >= 0; i--) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(p.get(i).puzzle[j] + " ");
+            String resultPuzzle = Node.puzzleConvertor(p.get(i).puzzle);
+            for (int j = 0; j < resultPuzzle.length(); j++) {
+                System.out.print(resultPuzzle.charAt(j) + " ");
                 if (j % 3 == 2)
                     System.out.println();
             }
@@ -44,9 +47,8 @@ public abstract class Agent {
         }
         System.out.println("cost " + (p.size() - 1));
         System.out.println("maxDepth : " + getMaxDepth());
-        System.out.println("nodes" + getNodesExpanded());
+        System.out.println("nodes " + getNodesExpanded());
         res = p;
-
     }
 
     public int getDepth() {
