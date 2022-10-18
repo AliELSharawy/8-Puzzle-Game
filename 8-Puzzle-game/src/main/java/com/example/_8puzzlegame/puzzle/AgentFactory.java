@@ -4,6 +4,8 @@ import com.example._8puzzlegame.SearchAgent.AStar;
 import com.example._8puzzlegame.SearchAgent.Agent;
 import com.example._8puzzlegame.SearchAgent.BFS;
 import com.example._8puzzlegame.SearchAgent.DFS;
+import static com.example._8puzzlegame.SearchAgent.Heuristics.euclideanDistance;
+import static com.example._8puzzlegame.SearchAgent.Heuristics.manhattanDistance;
 
 public class AgentFactory {
     public static Agent agentMaker(String agentName) {
@@ -15,10 +17,10 @@ public class AgentFactory {
                 return new DFS();
             }
             case "A* using Euclidean" -> {
-                return new AStar(puzzleGame.euclideanDistance);
+                return new AStar(euclideanDistance);
             }
             case "A* using Manhattan" -> {
-                return new AStar(puzzleGame.manhattanDistance);
+                return new AStar(manhattanDistance);
             }
             default -> {
                 return null;
