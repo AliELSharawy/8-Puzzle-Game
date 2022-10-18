@@ -8,33 +8,42 @@ public class BFS extends Agent {
     @Override
     public void solve(int[] startState) {
         Node root = new Node(startState);
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node> queue = new ArrayDeque<>();
         Set<String> visited = new HashSet<>();
+        Set<String> fringeSet = new HashSet<>();
 
         queue.add(root);
+        fringeSet.add(Arrays.toString(startState));
 
         long start = System.currentTimeMillis();
 
         while (!queue.isEmpty() ) {
             Node state = queue.poll();
             visited.add(Arrays.toString(state.puzzle));
+            fringeSet.remove(Arrays.toString(state.puzzle));
 
             // found goal when dequeue
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
-            if (state.goalTest()) {
-                System.out.println("Goal Found");
-                goal = state;
-                break;
-            }
 
             expand(state);
 
             for (Node child : state.getChildren()) {
 
-                if (!visited.contains(Arrays.toString(child.puzzle)))
+                if (state.goalTest()) {
+                    System.out.println("Goal Found");
+                    goal = state;
+                    break;
+                }
+
+                if (!visited.contains(Arrays.toString(child.puzzle)) && !fringeSet.contains(Arrays.toString(child.puzzle))) {
                     queue.add(child); //if not  visited add to closed set
+                    fringeSet.add(Arrays.toString(child.puzzle));
+                }
 
             }
+
+            if (goal != null)
+                break;
 
         }
 

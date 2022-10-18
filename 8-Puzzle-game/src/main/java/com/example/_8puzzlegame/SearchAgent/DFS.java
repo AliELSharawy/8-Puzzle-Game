@@ -12,27 +12,31 @@ public class DFS extends Agent {
         Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
         Set<String> visited = new HashSet<>();
+        Set<String> fringeSet = new HashSet<>();
         stack.push(root);
+        fringeSet.add(Arrays.toString(startState));
 
         long start = System.currentTimeMillis();
 
         while (!stack.isEmpty()) {
             Node state = stack.pop();
             visited.add(Arrays.toString(state.puzzle));
+            fringeSet.remove(Arrays.toString(state.puzzle));
 
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
-            if (state.goalTest()) {
-                System.out.println("Goal Found");
-                goal = state;
-                break;
-            }
-
 
             expand(state);
 
             for (Node child : state.getChildren()) {
-                if (!visited.contains(Arrays.toString(child.puzzle))) {
+                if (state.goalTest()) {
+                    System.out.println("Goal Found");
+                    goal = state;
+                    break;
+                }
+
+                if (!visited.contains(Arrays.toString(child.puzzle)) && !fringeSet.contains(Arrays.toString(child.puzzle))) {
                     stack.add(child);
+                    fringeSet.add(Arrays.toString(child.puzzle));
                 }
             }
 

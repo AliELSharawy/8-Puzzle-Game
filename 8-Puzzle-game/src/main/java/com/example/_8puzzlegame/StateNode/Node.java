@@ -57,7 +57,7 @@ public class Node {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Node))
+        if (o.getClass() != this.getClass())
             return false;
         if (o == this)
             return true;
@@ -129,8 +129,8 @@ public class Node {
             }
         }
 
-        noStates += move(puzzle, getSpaceIndex(), 'r');
         noStates += move(puzzle, getSpaceIndex(), 'l');
+        noStates += move(puzzle, getSpaceIndex(), 'r');
         noStates += move(puzzle, getSpaceIndex(), 'u');
         noStates += move(puzzle, getSpaceIndex(), 'd');
 
