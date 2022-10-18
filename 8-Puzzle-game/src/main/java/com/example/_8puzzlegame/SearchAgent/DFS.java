@@ -33,7 +33,8 @@ public class DFS extends Agent {
             expand(state);
 
             for (Node child : state.getChildren()) {
-                if (!visited.contains(child.puzzle) && !fringeElements.contains(child.puzzle)){
+
+                if (!visited.contains(child.puzzle) && !fringeElements.contains(child.puzzle)) {
                     stack.add(child);
                     fringeElements.add(child.puzzle);
                 }
@@ -41,7 +42,7 @@ public class DFS extends Agent {
 
         }
         long executionTime = System.currentTimeMillis() - start;
-
+        setTime(executionTime);
         if (goal != null) {
             tracePath(goal);
             System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");

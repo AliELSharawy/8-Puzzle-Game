@@ -1,6 +1,6 @@
 package com.example._8puzzlegame;
 
-import com.example._8puzzlegame.puzzle.puzzleGame;
+import com.example._8puzzlegame.puzzle.PuzzleGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to 8 Puzzle Game :)");
-        puzzleGame x = new puzzleGame();
+        PuzzleGame x = new PuzzleGame();
         x.startPlaying(stage);
 
     }

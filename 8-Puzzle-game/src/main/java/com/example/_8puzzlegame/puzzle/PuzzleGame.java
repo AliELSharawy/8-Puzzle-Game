@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 
 
-public class puzzleGame {
+public class PuzzleGame {
 
     public static LinkedList<Node> puzz = new LinkedList<>();//contains the result
     public String p = "";// store the input array of the user
@@ -35,6 +35,7 @@ public class puzzleGame {
     public Label label3;//no nodes
     public Label label4;//depth/cost
     public Label label5;//invalid input
+    public Label label6;
     public int noNodes = 0;
 
 
@@ -44,7 +45,7 @@ public class puzzleGame {
     public int ctr = puzz.size() - 1;
 
 
-    public puzzleGame() {
+    public PuzzleGame() {
         this.gridPane = new GridPane();
 
     }
@@ -124,6 +125,12 @@ public class puzzleGame {
         label4.setTextFill(Color.web("#664d00"));
         label4.setFont(new Font("Cambria", 18));
 
+        label6 = new Label();
+        label6.setLayoutX(500);
+        label6.setLayoutY(500);
+        label6.setTextFill(Color.web("#664d00"));
+        label6.setFont(new Font("Cambria", 18));
+
 
         label5 = new Label();
         label5.setLayoutX(500);
@@ -154,7 +161,7 @@ public class puzzleGame {
         hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5, combo_box, next, prev, hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5,label6, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -312,6 +319,7 @@ public class puzzleGame {
                 label2.setText("Max depth = " + agent.getMaxDepth());
                 label3.setText("#no of nodes =" + noNodes);
                 label4.setText("Cost/Depth =" + agent.getDepth());
+                label6.setText("Time =" + agent.getTime()+" ms");
             } else {
                 label2.setTextFill(Color.web("#ff0000"));
                 label2.setText(" Not solvable Example !!!! ");

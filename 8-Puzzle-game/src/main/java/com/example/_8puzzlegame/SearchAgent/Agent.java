@@ -12,18 +12,29 @@ public abstract class Agent {
     public LinkedList<Node> res = new LinkedList<>();
     protected int maxDepth;
 
+
+
+    public long time;
     protected int nodesExpanded;
 
     public Agent() {
         goal = null;
         maxDepth = 0;
         nodesExpanded = 0;
+        time =0;
     }
 
     public abstract void solve(int startState);
 
     public void expand(Node state) {
         nodesExpanded += state.expand();
+    }
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public void tracePath(Node n) {

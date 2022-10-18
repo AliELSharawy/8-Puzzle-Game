@@ -1,5 +1,6 @@
-package SearchAgent;
+package com.example._8puzzlegame.SearchAgent;
 
+import SearchAgent.Agent;
 import StateNode.Node;
 
 import java.util.*;
@@ -12,42 +13,39 @@ public class BFS extends Agent {
         Set<String> visited = new HashSet<>();
 
         queue.add(root);
-        boolean found = false;
+
         long start = System.currentTimeMillis();
 
-        // if the initial case is the goal
-        if (root.goalTest()) {
-            System.out.println("Goal Found It was the initial state ");
-            found = true;
-            goal = root;
-        }
-
-        while (!queue.isEmpty() && !found) {
+        while (!queue.isEmpty()) {
             Node state = queue.poll();
             visited.add(Arrays.toString(state.puzzle));
-            state.expand();
 
+            // found goal when dequeue
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
+            if (state.goalTest()) {
+                System.out.println("Goal Found");
+                goal = state;
+                break;
+            }
+
+            expand(state);
 
             for (Node child : state.getChildren()) {
-                if (child.goalTest()) {
-                    System.out.println("Goal Found");
-                    found = true;
-                    goal = child;
-                }
+
                 if (!visited.contains(Arrays.toString(child.puzzle)))
-                    queue.add(child);
+                    queue.add(child); //if not  visited add to closed set
+
             }
+
         }
 
         long executionTime = System.currentTimeMillis() - start;
 
-       // return tracePath(goal);
-        if(goal !=null){
+        // return tracePath(goal);
+        if (goal != null) {
             tracePath(goal);
             System.out.println("Time taken by SearchAgent BFS " + executionTime + " ms");
-        }
-        else
+        } else
             System.out.println(" Not solvable Example  !!!! ");
 
     }

@@ -42,7 +42,7 @@ public class BFS extends Agent {
         }
 
         long executionTime = System.currentTimeMillis() - start;
-
+        setTime(executionTime);
         // return tracePath(goal);
         if (goal != null) {
             tracePath(goal);

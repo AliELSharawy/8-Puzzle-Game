@@ -1,10 +1,13 @@
 package SearchAgent;
+
 import StateNode.Node;
+
 import java.util.LinkedList;
-import java.util.List;
+
 
 public abstract class Agent {
     protected Node goal;
+    public LinkedList<Node> res = new LinkedList<>();
     protected int maxDepth;
 
     protected int nodesExpanded;
@@ -20,13 +23,14 @@ public abstract class Agent {
     public void expand(Node state) {
         nodesExpanded += state.expand();
     }
-    public List<Node> tracePath(Node n) {
+
+    public void tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
         p.add(curr);
 
-        while (curr.parent != null) {
-            curr = curr.parent;
+        while (curr.getParent() != null) {
+            curr = curr.getParent();
             p.add(curr);
         }
 
@@ -39,8 +43,10 @@ public abstract class Agent {
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
-        System.out.println( "maxDepth :" + getMaxDepth());
-        return p;
+        System.out.println("maxDepth : " + getMaxDepth());
+        System.out.println("nodes" + getNodesExpanded());
+        res = p;
+
     }
 
     public int getDepth() {
@@ -54,4 +60,5 @@ public abstract class Agent {
     public int getNodesExpanded() {
         return nodesExpanded;
     }
+
 }

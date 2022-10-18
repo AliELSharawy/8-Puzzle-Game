@@ -1,6 +1,5 @@
 import SearchAgent.AStar;
 import SearchAgent.Agent;
-import SearchAgent.BFS;
 import SearchAgent.DFS;
 
 import java.awt.*;
@@ -20,24 +19,15 @@ public class Main {
                 7, 6, 5
         };*/
 
-     int[] puzzle = {
+    /* int[] puzzle = {
                 1, 2, 5,
                 3, 4, 0,
                6, 7, 8
         };
 
-        /*int[] puzzle = {
-                1, 4, 2,
-                6, 5, 8,
-                7, 3, 0
-        };*/
-/*
-        int[] puzzle = {
-                1, 2, 3,
-                5, 6, 0,
-                7, 8, 4
-        };
-*/
+
+
+
 
 
 //not solvable
@@ -57,8 +47,18 @@ public class Main {
                 3, 4, 5,
                 6, 7, 8
         };*/
-
-       Agent b = new DFS();
+        int[] puzzle = {
+                1, 4, 2,
+                6, 5, 8,
+                7, 3, 0
+        };
+       /* int[] puzzle = {
+                1, 2, 3,
+                5, 6, 0,
+                7, 8, 4
+        };
+*/
+        Agent b = new DFS();
         b.solve(puzzle);
 
 

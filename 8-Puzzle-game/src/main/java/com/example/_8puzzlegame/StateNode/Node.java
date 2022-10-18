@@ -130,10 +130,11 @@ public class Node {
             }
         }
 
-        noStates += move(puzzle, getSpaceIndex(), 'l');
-        noStates += move(puzzle, getSpaceIndex(), 'r');
+
         noStates += move(puzzle, getSpaceIndex(), 'u');
         noStates += move(puzzle, getSpaceIndex(), 'd');
+        noStates += move(puzzle, getSpaceIndex(), 'l');
+        noStates += move(puzzle, getSpaceIndex(), 'r');
 
         return noStates;
     }
