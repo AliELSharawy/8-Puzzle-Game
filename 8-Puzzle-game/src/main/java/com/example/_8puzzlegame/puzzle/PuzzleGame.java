@@ -39,7 +39,7 @@ public class PuzzleGame {
     public int noNodes = 0;
 
 
-    public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
+    public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image(String.format("file:src/main/resources/img.png")),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,1000, false, false, true, true)));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
     public int ctr = puzz.size() - 1;
