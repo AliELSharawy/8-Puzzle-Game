@@ -1,11 +1,9 @@
 package com.example._8puzzlegame.puzzle;
 
-import com.example._8puzzlegame.SearchAgent.AStar;
 import com.example._8puzzlegame.SearchAgent.Agent;
-import com.example._8puzzlegame.SearchAgent.BFS;
-import com.example._8puzzlegame.SearchAgent.DFS;
 import com.example._8puzzlegame.StateNode.Node;
 import javafx.collections.FXCollections;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,13 +11,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.function.BiFunction;
@@ -27,30 +26,31 @@ import java.util.function.BiFunction;
 
 public class puzzleGame {
 
-    public static LinkedList<Node> puzz = new LinkedList<>();//fiha el result
-    public final int[] p = {0, 0, 0, 0, 0, 0, 0, 0, 0};//7yt5zn fyha el input array bt3t el user
+    public static LinkedList<Node> puzz = new LinkedList<>();//contains the result
+    public String p = "";// store the input array of the user
     private final GridPane gridPane;
-    public Label label2;
-    private final DropShadow shadow;
+    public Label label2;//max depth
+    public Label label3;//no nodes
+    public Label label4;//depth/cost
+    public int noNodes = 0;
+
+
     public static final Background SKY_BLUE = new Background(new BackgroundFill(Color.BURLYWOOD, null, null));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
     public int ctr = puzz.size() - 1;
 
-    Agent b = new BFS();
-    Agent d = new DFS();
-    Agent a = new AStar();
+
     public static BiFunction<Point, Point, Double> euclideanDistance =
             (Point p1, Point p2) -> Math.hypot(p1.x - p2.x, p1.y - p2.y);
     public static BiFunction<Point, Point, Double> manhattanDistance =
             (Point p1, Point p2) -> Double.valueOf(Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y));
 
-    private puzzleBoard board;
+
 
     public puzzleGame() {
         this.gridPane = new GridPane();
-        this.shadow = new DropShadow();
-        this.board = new puzzleBoard();
+
     }
 
     public void startPlaying(Stage stage) {
@@ -59,8 +59,8 @@ public class puzzleGame {
 
     private void drawMainWindow(Stage stage) {
         AnchorPane pane = new AnchorPane();
-        int h = 700;
-        int w = 1000;
+        int h = 600;
+        int w = 700;
 
 
         drawGridPane();
@@ -68,76 +68,98 @@ public class puzzleGame {
 
         //text
         TextField text = new TextField("Enter puzzle");
-        text.setLayoutX(700);
-        text.setLayoutY(100);
+        text.setLayoutX(500);
+        text.setLayoutY(120);
 
         //this one
-        Label label = new Label("Enter Your Puzzle in that form 125340678 ");
+        Label label = new Label("Enter Your Puzzle in\nthat form 125340678 ");
         label.setLayoutY(75);
-        label.setLayoutX(660);
-        label.setTextFill(Color.web("#CA3433"));
+        label.setLayoutX(500);
+        label.setTextFill(Color.web("#664d00"));
         label.setFont(new Font("Cambria", 15));
 
 
         //button of puzzle entrance
         Button puzzleEnter = new Button("Enter Puzzle :)");
-        puzzleEnter.setLayoutX(700);
-        puzzleEnter.setLayoutY(130);
+        puzzleEnter.setLayoutX(530);
+        puzzleEnter.setLayoutY(150);
+        puzzleEnter.setMinSize(30, 30);
+        puzzleEnter.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         puzzleEnter.setOnMouseClicked(e -> solving(text.getText()));
 
         //
-        Label label1 = new Label("choose the search method");
-        label1.setLayoutX(685);
+        Label label1 = new Label("Choose Search Method");
+        label1.setLayoutX(500);
         label1.setLayoutY(280);
-        label1.setTextFill(Color.web("#CA3433"));
+        label1.setTextFill(Color.web("#664d00"));
         label1.setFont(new Font("Cambria", 15));
 
         //dropdown list
         String[] algo = {"BFS", "DFS", "A* using Euclidean", "A* using Manhattan"};
 
-        ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(algo));
-        combo_box.setLayoutX(700);
-        combo_box.setLayoutY(300);
+        ComboBox<String> combo_box = new ComboBox<>(FXCollections.observableArrayList(algo));
+        combo_box.setLayoutX(500);
+        combo_box.setLayoutY(320);
         combo_box.getSelectionModel().selectFirst();
         //button of puzzle start solving
         Button start = new Button("Solve :)");
-        start.setLayoutX(700);
-        start.setLayoutY(400);
+        start.setMinSize(30, 30);
+        start.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
+        start.setLayoutX(550);
+        start.setLayoutY(360);
 
-        start.setOnMouseClicked(e -> solveMethod(text.getText(), p, (String) combo_box.getValue()));
+        start.setOnMouseClicked(e -> solveMethod(text.getText(), p, combo_box.getValue()));
 
-        label2= new Label();
-        label2.setLayoutX(700);
-        label2.setLayoutY(500);
-        label2.setTextFill(Color.web("#2980B9"));
-        label2.setFont(new Font("Cambria", 25));
+        label2 = new Label();
+        label2.setLayoutX(500);
+        label2.setLayoutY(440);
+        label2.setTextFill(Color.web("#664d00"));
+        label2.setFont(new Font("Cambria", 18));
+
+        label3 = new Label();
+        label3.setLayoutX(500);
+        label3.setLayoutY(460);
+        label3.setTextFill(Color.web("#664d00"));
+        label3.setFont(new Font("Cambria", 18));
+
+        label4 = new Label();
+        label4.setLayoutX(500);
+        label4.setLayoutY(480);
+        label4.setTextFill(Color.web("#664d00"));
+        label4.setFont(new Font("Cambria", 18));
 
         //button of puzzle entrance
         Button next = new Button("Next");
-        next.setLayoutX(400);
-        next.setLayoutY(600);
+        next.setLayoutX(370);
+        next.setLayoutY(500);
+        next.setMinSize(60, 60);
+        next.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         next.setOnMouseClicked(e -> updateCtr(-1));
 
         //button of puzzle entrance
         Button prev = new Button("Prev");
-        prev.setLayoutX(100);
-        prev.setLayoutY(600);
+        prev.setLayoutX(70);
+        prev.setLayoutY(500);
+        prev.setMinSize(60, 60);
+        prev.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         prev.setOnMouseClicked(e -> updateCtr(1));
 
         //button of puzzle entrance
         Button hist = new Button("View Path");
-        hist.setLayoutX(700);
-        hist.setLayoutY(600);
+        hist.setLayoutX(542);
+        hist.setLayoutY(400);
+        hist.setMinSize(30, 30);
+        hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, combo_box, next, prev,hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void pathWindow(){
+    public void pathWindow() {
         Stage stage = new Stage();
         ScrollPane pane = new ScrollPane();
         int h = 500;
@@ -146,30 +168,33 @@ public class puzzleGame {
         root.setSpacing(10);
         root.setPadding(new Insets(10));
 
-        for (int k=puzz.size()-1;k>=0;k--) {
-            GridPane grid = new GridPane();
-            grid = createNewGridPane(60+k*150);
+        for (int k = puzz.size() - 1; k >= 0; k--) {
+            //GridPane grid = new GridPane();
+            GridPane grid = createNewGridPane(60 + k * 130);
             for (int i = 0; i < 3; i++) {
+                String puzzleRes = Node.puzzleConvertor(puzz.get(k).puzzle);
                 for (int j = 0; j < 3; j++) {
-                    if (puzz.get(k).puzzle[j + 3 * i] != 0) {
-                        ImageView imageView = getSpiritPath(puzz.get(k).puzzle[j + 3 * i]);
-                        grid.add(imageView,j,i);
+                    if (puzzleRes.charAt(j + 3 * i) != '0') {
+                        Label label = new Label(String.valueOf(puzzleRes.charAt(j + 3 * i)));
+                        label.setTextFill(Color.ORANGE);
+                        Font font = Font.font("Verdana", FontWeight.BOLD, 15);
+                        label.setFont(font);
+                        GridPane.setHalignment(label, HPos.CENTER);
+
+                        grid.add(label, j, i);
                     }
                 }
             }
-            LinkedList<GridPane> v = new LinkedList<>();
             root.getChildren().add(grid);
 
         }
         pane.setContent(root);
-        //  pane.setContent();
-       // pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
         stage.show();
     }
 
-    public GridPane createNewGridPane(int y){
+    public GridPane createNewGridPane(int y) {
         GridPane grid = new GridPane();
         grid.getChildren().clear();
         grid.setDisable(false);
@@ -194,10 +219,7 @@ public class puzzleGame {
         return grid;
     }
 
-    private void startNew() {
-        drawGridPane();
-        board = new puzzleBoard();
-    }
+
 
     public void updateCtr(int go) {
         if (go == -1 && ctr >= 1) {
@@ -211,12 +233,17 @@ public class puzzleGame {
     }
 
     public void next(Node n) {
-
         drawGridPane();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (n.puzzle[j + 3 * i] != 0) {
-                    updateUX(i, j, n.puzzle[j + 3 * i]);
+                String s="";
+                if(Integer.toString(n.puzzle).length()==8){
+                    s="0"+Integer.toString(n.puzzle);
+                }else {
+                    s=Integer.toString(n.puzzle);
+                }
+                if (s.charAt(j + 3 * i) != '0') {
+                    updateUX(i, j, s.charAt(j + 3 * i)-'0');
                 }
             }
         }
@@ -224,6 +251,7 @@ public class puzzleGame {
 
     public void solving(String arr) {
         int[] arr1 = new int[9];
+        p = arr;
         for (int i = 0; i < arr.length(); i++) {
             arr1[i] = (arr.charAt(i) - '0');
         }
@@ -233,51 +261,36 @@ public class puzzleGame {
                 if (arr1[j + 3 * i] != 0) {
                     updateUX(i, j, arr1[j + 3 * i]);
                 }
-                p[j + 3 * i] = arr1[j + 3 * i];
             }
         }
     }
 
-    public void solveMethod(String arr1, int[] arr, String method) {
+    public void solveMethod(String arr1, String arr, String method) {
         solving(arr1);
         System.out.println(method);
-        switch (method) {
-            case "BFS" -> {
-                b.solve(arr);
-                puzz = b.res;
-                System.out.println("BFS");
-                ctr = b.res.size() - 1;
-            }
-            case "DFS" -> {
-                d.solve(arr);
-                System.out.println("DFS");
-                puzz = d.res;
-                ctr = d.res.size() - 1;
-            }
-            case "A* using Euclidean" -> {
-                System.out.println("eu");
-                a.setHeuristicFunction(euclideanDistance);
-                a.solve(arr);
-                puzz = a.res;
-                ctr = a.res.size() - 1;
-            }
-            case "A* using Manhattan" -> {
-                System.out.println("man");
-                a.setHeuristicFunction(manhattanDistance);
-                a.solve(arr);
-                puzz = a.res;
-                ctr = a.res.size() - 1;
-            }
-        }
+        label2.setTextFill(Color.web("#664d00"));
+        Agent agent = AgentFactory.agentMaker(method);
+        agent.solve(Integer.parseInt(arr));
+        puzz = agent.res;
+        ctr = agent.res.size() - 1;
+        noNodes = agent.getNodesExpanded();
+        System.out.println(method);
         if (puzz.size() != 0) {
             System.out.println(puzz.get(0).getDepth());
-            label2.setText("The depth = "+Integer.toString(puzz.get(0).getDepth()));
+            label2.setText("Max depth = " + agent.getMaxDepth());
+            label3.setText("#no of nodes =" + noNodes);
+            label4.setText("Cost/Depth =" + agent.getDepth());
+        } else {
+            label2.setTextFill(Color.web("#ff0000"));
+            label2.setText(" Not solvable Example !!!! ");
+
         }
 
+        noNodes = 0;
     }
 
 
-    private void drawGridPane() {//btfady w trsm l grid mn awl w gded
+    private void drawGridPane() {// clean and draw the grid again
         // Clear all
         gridPane.getChildren().clear();
         gridPane.setDisable(false);
@@ -303,15 +316,7 @@ public class puzzleGame {
 
     }
 
-    public void solvePuzzle(Node res) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (res.puzzle[j + 3 * i] != 0) {
-                    updateUX(i, j, res.puzzle[j + 3 * i]);
-                }
-            }
-        }
-    }
+
 
     private void updateUX(int i, int j, int index) {
         ImageView imageView = getSpirit(index);
@@ -328,17 +333,5 @@ public class puzzleGame {
         return imageView;
     }
 
-    private void updateUXPath(int i, int j, int index) {
-        ImageView imageView = getSpirit(index);
-        gridPane.add(imageView, j, i);
-    }
-    private ImageView getSpiritPath(int i) {
 
-        String location = String.format("file:src/main/resources/" + "%s.png", i);
-        Image image = new Image(location);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(17);
-        return imageView;
-    }
 }

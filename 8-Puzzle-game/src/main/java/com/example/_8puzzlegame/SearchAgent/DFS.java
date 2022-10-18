@@ -5,38 +5,37 @@ import com.example._8puzzlegame.StateNode.Node;
 import java.util.*;
 
 public class DFS extends Agent {
-
     //Stack
     @Override
-    public void solve(int[] startState) {
+    public void solve(int startState) {
         Node root = new Node(startState);
         Stack<Node> stack = new Stack<>();
-        Set<String> visited = new HashSet<>();
-        Set<String> fringeSet = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
+        Set<Integer> fringeElements = new HashSet<>();
+
         stack.push(root);
-        fringeSet.add(Arrays.toString(startState));
+        fringeElements.add(root.puzzle);
 
         long start = System.currentTimeMillis();
 
         while (!stack.isEmpty()) {
             Node state = stack.pop();
-            visited.add(Arrays.toString(state.puzzle));
-            fringeSet.remove(Arrays.toString(state.puzzle));
+            fringeElements.remove(state.puzzle);
+            visited.add(state.puzzle);
 
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
+            if (state.goalTest()) {
+                System.out.println("Goal Found");
+                goal = state;
+                break;
+            }
 
             expand(state);
 
             for (Node child : state.getChildren()) {
-                if (state.goalTest()) {
-                    System.out.println("Goal Found");
-                    goal = state;
-                    break;
-                }
-
-                if (!visited.contains(Arrays.toString(child.puzzle)) && !fringeSet.contains(Arrays.toString(child.puzzle))) {
+                if (!visited.contains(child.puzzle) && !fringeElements.contains(child.puzzle)){
                     stack.add(child);
-                    fringeSet.add(Arrays.toString(child.puzzle));
+                    fringeElements.add(child.puzzle);
                 }
             }
 
@@ -49,5 +48,4 @@ public class DFS extends Agent {
         } else
             System.out.println(" Not solvable Example  !!!! ");
     }
-
 }

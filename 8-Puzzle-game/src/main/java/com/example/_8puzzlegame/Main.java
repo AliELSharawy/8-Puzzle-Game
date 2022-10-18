@@ -1,15 +1,19 @@
 package com.example._8puzzlegame;
 
+import com.example._8puzzlegame.SearchAgent.Agent;
+import com.example._8puzzlegame.SearchAgent.BFS;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class Main extends Application {
-    static Stage window;
+    //static Stage window;
     @Override
     public void start(Stage stage) {
         Main.begin(stage);

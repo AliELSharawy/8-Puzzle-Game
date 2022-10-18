@@ -1,0 +1,28 @@
+package com.example._8puzzlegame.puzzle;
+
+import com.example._8puzzlegame.SearchAgent.AStar;
+import com.example._8puzzlegame.SearchAgent.Agent;
+import com.example._8puzzlegame.SearchAgent.BFS;
+import com.example._8puzzlegame.SearchAgent.DFS;
+
+public class AgentFactory {
+    public static Agent agentMaker(String agentName) {
+        switch (agentName) {
+            case "BFS" -> {
+                return new BFS();
+            }
+            case "DFS" -> {
+                return new DFS();
+            }
+            case "A* using Euclidean" -> {
+                return new AStar(puzzleGame.euclideanDistance);
+            }
+            case "A* using Manhattan" -> {
+                return new AStar(puzzleGame.manhattanDistance);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+}

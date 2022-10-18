@@ -1,18 +1,17 @@
 package com.example._8puzzlegame.StateNode;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Node {
 
-    public int[] puzzle = new int[9];
+    public int puzzle;
     private int spaceIndex;
     private int depth;
     private final List<Node> children;
     public Node parent;
 
-    public Node(int[] p) {
+    public Node(int p) {
         setPuzzle(p);
         setSpaceIndex(0);
         children = new LinkedList<>();
@@ -37,7 +36,7 @@ public class Node {
         return depth;
     }
 
-    public void setPuzzle(int[] puzzle) {
+    public void setPuzzle(int puzzle) {
         this.puzzle = puzzle;
     }
 
@@ -63,8 +62,9 @@ public class Node {
             return true;
 
         Node node = (Node) o;
-        return Arrays.equals(node.puzzle, this.puzzle);
+        return node.puzzle == this.puzzle;
     }
+
     public int offset(char c) {
         return switch (c) {
             case 'u' -> -3;
@@ -75,34 +75,34 @@ public class Node {
         };
     }
 
-    public void insert(int[] newState) {
+    public void insert(int newState) {
         Node child = new Node(newState);
         child.setDepth(depth + 1);
         this.children.add(child);
         child.setParent(this);
     }
 
-    public int move(int[] p, int i, char direction) {
+    public int move(int p, int i, char direction) {
         int offset = offset(direction);
-        if (isValid(i, direction)) {
+        if (isValid(direction)) {
             //System.out.print(" " + direction + " ");
-            int[] pc = swap(p, i, i + offset);
+            int pc = swap(p, i, i + offset);
             insert(pc);
             return 1;
         }
         return 0;
     }
 
-    private int[] swap(int[] p, int i, int j) {
+    private int swap(int p, int i, int j) {
         // clone the array so not change in the original one
-        int[] pc = p.clone();
+        StringBuilder pc = new StringBuilder(puzzleConvertor(p));
         // swap the 2 numbers
-        pc[i] = pc[j];
-        pc[j] = 0;
-        return pc;
+        pc.setCharAt(i,pc.charAt(j));
+        pc.setCharAt(j,'0');
+        return Integer.parseInt(pc.toString());
     }
 
-    private boolean isValid(int i, char direction) {
+    private boolean isValid(char direction) {
 
         return switch (direction) {
             // if 2 or 5 or 8 can't move to right which % 3 =2
@@ -122,8 +122,9 @@ public class Node {
 
     public int expand() {
         int noStates = 0;
-        for (int i = 0; i < puzzle.length; i++) {
-            if (puzzle[i] == 0) {
+        String puzzleStr = puzzleConvertor(puzzle);
+        for (int i = 0; i < puzzleStr.length(); i++) {
+            if (puzzleStr.charAt(i) == '0') {
                 setSpaceIndex(i);
                 break;
             }
@@ -139,24 +140,17 @@ public class Node {
 
 
     //goal test check if number in the list is not in ascending order this means it's not int the goal
-
     //0 1 2 3 4 5 6 7 8
-    public boolean goalTest(){
-        int prev = puzzle[0];
-        for(int i = 1; i < puzzle.length; i++){
-            if(prev > puzzle[i])
-                return false;
-            prev = puzzle[i];
-        }
-        return true;
+    public boolean goalTest() {
+        return puzzle == 12345678;
     }
 
-    /*public void print(){
-        for(Node child:getChildren()){
-            for(int i=0;i<puzzle.length;i++){
-                System.out.print(child.puzzle[i]+" ");
-                if(i%3==2)
-                    System.out.println();
-      }*/
+    public static String puzzleConvertor(int puzzle){
+        String puzzleStr = Integer.toString(puzzle);
+        if(puzzleStr.length() < 9)
+            return '0' + puzzleStr;
+        return puzzleStr;
+    }
+
 
 }
