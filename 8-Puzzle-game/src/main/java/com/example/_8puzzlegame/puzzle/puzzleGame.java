@@ -20,7 +20,9 @@ import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 
 import java.awt.*;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 
@@ -32,6 +34,7 @@ public class puzzleGame {
     public Label label2;//max depth
     public Label label3;//no nodes
     public Label label4;//depth/cost
+    public Label label5;//invalid input
     public int noNodes = 0;
 
 
@@ -128,6 +131,12 @@ public class puzzleGame {
         label4.setTextFill(Color.web("#664d00"));
         label4.setFont(new Font("Cambria", 18));
 
+
+        label5 = new Label();
+        label5.setLayoutX(500);
+        label5.setLayoutY(190);
+        label5.setTextFill(Color.RED);
+        label5.setFont(new Font("Cambria", 18));
         //button of puzzle entrance
         Button next = new Button("Next");
         next.setLayoutX(370);
@@ -152,7 +161,7 @@ public class puzzleGame {
         hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4, combo_box, next, prev, hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setScene(scene);
@@ -222,13 +231,15 @@ public class puzzleGame {
 
 
     public void updateCtr(int go) {
-        if (go == -1 && ctr >= 1) {
-            ctr--;
-            System.out.println(puzz.size());
-            next(puzz.get(ctr));
-        } else if (go == 1 && ctr <= puzz.size() - 2) {
-            ctr++;
-            next(puzz.get(ctr));
+        if(p!="") {
+            if (go == -1 && ctr >= 1) {
+                ctr--;
+                System.out.println(puzz.size());
+                next(puzz.get(ctr));
+            } else if (go == 1 && ctr <= puzz.size() - 2) {
+                ctr++;
+                next(puzz.get(ctr));
+            }
         }
     }
 
@@ -249,41 +260,70 @@ public class puzzleGame {
         }
     }
 
-    public void solving(String arr) {
-        int[] arr1 = new int[9];
-        p = arr;
+    public boolean validation(String arr){
+        Set<Integer> s = new HashSet<>();
         for (int i = 0; i < arr.length(); i++) {
-            arr1[i] = (arr.charAt(i) - '0');
+            if(arr.charAt(i) - '0' <=8 && arr.charAt(i) - '0' >=0) {
+                s.add(arr.charAt(i) - '0');
+            }else {
+                return false;
+            }
         }
-        drawGridPane();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (arr1[j + 3 * i] != 0) {
-                    updateUX(i, j, arr1[j + 3 * i]);
+        if (s.size()!=9){
+            return false;
+        }
+
+        return true;
+    }
+
+    public void solving(String arr) {
+        label2.setText("");
+        label3.setText("");
+        label4.setText("");
+        label5.setText("");
+        puzz= new LinkedList<>();
+        p="";
+        if (validation(arr)) {
+            int[] arr1 = new int[9];
+            p = arr;
+            for (int i = 0; i < arr.length(); i++) {
+                arr1[i] = (arr.charAt(i) - '0');
+            }
+            drawGridPane();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (arr1[j + 3 * i] != 0) {
+                        updateUX(i, j, arr1[j + 3 * i]);
+                    }
                 }
             }
+        }else {
+            drawGridPane();
+            label5.setText("INVALID INPUT!!!");
         }
     }
 
     public void solveMethod(String arr1, String arr, String method) {
-        solving(arr1);
-        System.out.println(method);
-        label2.setTextFill(Color.web("#664d00"));
-        Agent agent = AgentFactory.agentMaker(method);
-        agent.solve(Integer.parseInt(arr));
-        puzz = agent.res;
-        ctr = agent.res.size() - 1;
-        noNodes = agent.getNodesExpanded();
-        System.out.println(method);
-        if (puzz.size() != 0) {
-            System.out.println(puzz.get(0).getDepth());
-            label2.setText("Max depth = " + agent.getMaxDepth());
-            label3.setText("#no of nodes =" + noNodes);
-            label4.setText("Cost/Depth =" + agent.getDepth());
-        } else {
-            label2.setTextFill(Color.web("#ff0000"));
-            label2.setText(" Not solvable Example !!!! ");
+        if(p!="") {
+            solving(arr1);
+            System.out.println(method);
+            label2.setTextFill(Color.web("#664d00"));
+            Agent agent = AgentFactory.agentMaker(method);
+            agent.solve(Integer.parseInt(arr));
+            puzz = agent.res;
+            ctr = agent.res.size() - 1;
+            noNodes = agent.getNodesExpanded();
+            System.out.println(method);
+            if (puzz.size() != 0) {
+                System.out.println(puzz.get(0).getDepth());
+                label2.setText("Max depth = " + agent.getMaxDepth());
+                label3.setText("#no of nodes =" + noNodes);
+                label4.setText("Cost/Depth =" + agent.getDepth());
+            } else {
+                label2.setTextFill(Color.web("#ff0000"));
+                label2.setText(" Not solvable Example !!!! ");
 
+            }
         }
 
         noNodes = 0;
