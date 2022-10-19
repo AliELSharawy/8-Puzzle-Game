@@ -57,7 +57,7 @@ public class PuzzleGame {
     private void drawMainWindow(Stage stage) {
         AnchorPane pane = new AnchorPane();
         int h = 600;
-        int w = 700;
+        int w = 800;
 
 
         drawGridPane();
@@ -305,6 +305,11 @@ public class PuzzleGame {
     }
 
     public void solveMethod(String arr1, String arr, String method) {
+        label2.setText("");
+        label3.setText("");
+        label4.setText("");
+        label5.setText("");
+        label6.setText("");
         if(p!="") {
             solving(arr1);
             System.out.println(method);
