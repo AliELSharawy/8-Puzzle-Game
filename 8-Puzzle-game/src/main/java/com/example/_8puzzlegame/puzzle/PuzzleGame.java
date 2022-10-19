@@ -281,6 +281,7 @@ public class PuzzleGame {
         label3.setText("");
         label4.setText("");
         label5.setText("");
+        label6.setText("");
         puzz= new LinkedList<>();
         p="";
         if (validation(arr)) {
