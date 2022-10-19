@@ -18,12 +18,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
-
-import java.awt.*;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Set;
-import java.util.function.BiFunction;
 
 
 public class PuzzleGame {
@@ -39,7 +37,7 @@ public class PuzzleGame {
     public int noNodes = 0;
 
 
-    public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image(String.format("file:src/main/resources/img.png")),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,1000, false, false, true, true)));
+    public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image("file:src/main/resources/img.png"),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,1000, false, false, true, true)));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
     public int ctr = puzz.size() - 1;
@@ -183,8 +181,9 @@ public class PuzzleGame {
             for (int i = 0; i < 3; i++) {
                 String puzzleRes = Node.puzzleConvertor(puzz.get(k).puzzle);
                 for (int j = 0; j < 3; j++) {
-                    if (puzzleRes.charAt(j + 3 * i) != '0') {
-                        Label label = new Label(String.valueOf(puzzleRes.charAt(j + 3 * i)));
+                    char c = puzzleRes.charAt(j + 3 * i);
+                    if ( c != '0') {
+                        Label label = new Label(String.valueOf(c));
                         label.setTextFill(Color.ORANGE);
                         Font font = Font.font("Verdana", FontWeight.BOLD, 15);
                         label.setFont(font);
@@ -231,7 +230,7 @@ public class PuzzleGame {
 
 
     public void updateCtr(int go) {
-        if(p!="") {
+        if(!Objects.equals(p, "")) {
             if (go == -1 && ctr >= 1) {
                 ctr--;
                 System.out.println(puzz.size());
@@ -247,14 +246,15 @@ public class PuzzleGame {
         drawGridPane();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                String s="";
+                String s;
                 if(Integer.toString(n.puzzle).length()==8){
                     s="0"+Integer.toString(n.puzzle);
                 }else {
                     s=Integer.toString(n.puzzle);
                 }
-                if (s.charAt(j + 3 * i) != '0') {
-                    updateUX(i, j, s.charAt(j + 3 * i)-'0');
+                char c = s.charAt(j + 3 * i);
+                if (c != '0') {
+                    updateUX(i, j, c -'0');
                 }
             }
         }
@@ -269,11 +269,7 @@ public class PuzzleGame {
                 return false;
             }
         }
-        if (s.size()!=9){
-            return false;
-        }
-
-        return true;
+        return s.size() == 9;
     }
 
     public void solving(String arr) {
@@ -310,7 +306,7 @@ public class PuzzleGame {
         label4.setText("");
         label5.setText("");
         label6.setText("");
-        if(p!="") {
+        if(!Objects.equals(p, "")) {
             solving(arr1);
             System.out.println(method);
             label2.setTextFill(Color.web("#664d00"));
