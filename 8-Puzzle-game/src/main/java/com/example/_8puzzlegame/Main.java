@@ -1,7 +1,4 @@
 package com.example._8puzzlegame;
-
-import com.example._8puzzlegame.SearchAgent.Agent;
-import com.example._8puzzlegame.SearchAgent.BFS;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

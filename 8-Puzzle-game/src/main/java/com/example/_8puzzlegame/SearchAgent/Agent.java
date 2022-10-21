@@ -4,11 +4,13 @@ import com.example._8puzzlegame.StateNode.Node;
 
 import java.util.LinkedList;
 
-
 public abstract class Agent {
     protected Node goal;
     public LinkedList<Node> res = new LinkedList<>();
     protected int maxDepth;
+
+
+
     public long time;
     protected int nodesExpanded;
 

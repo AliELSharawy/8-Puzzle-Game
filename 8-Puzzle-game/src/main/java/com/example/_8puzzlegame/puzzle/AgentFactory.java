@@ -10,9 +10,6 @@ import static com.example._8puzzlegame.SearchAgent.Heuristics.manhattanDistance;
 public class AgentFactory {
     public static Agent agentMaker(String agentName) {
         switch (agentName) {
-            case "BFS" -> {
-                return new BFS();
-            }
             case "DFS" -> {
                 return new DFS();
             }
@@ -23,7 +20,7 @@ public class AgentFactory {
                 return new AStar(manhattanDistance);
             }
             default -> {
-                return null;
+                return new BFS();
             }
         }
     }
