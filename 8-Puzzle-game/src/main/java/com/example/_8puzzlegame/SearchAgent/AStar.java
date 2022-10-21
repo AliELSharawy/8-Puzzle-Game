@@ -7,7 +7,7 @@ import java.util.function.BiFunction;
 
 public class AStar extends Agent {
 
-    private BiFunction<Point, Point, Double> heuristicFunction;
+    private final BiFunction<Point, Point, Double> heuristicFunction;
 
     public AStar(BiFunction<Point, Point, Double> hFn) {
         heuristicFunction = hFn;
@@ -47,6 +47,7 @@ public class AStar extends Agent {
             }
         }
         long executionTime = System.currentTimeMillis() - start;
+        setTime(executionTime);
         //return tracePath(goal);
         if (goal != null) {
             tracePath(goal);
@@ -56,9 +57,6 @@ public class AStar extends Agent {
 
     }
 
-    public void setHeuristicFunction(BiFunction<Point, Point, Double> hFn) {
-        heuristicFunction = hFn;
-    }
 
     public Double calculateHeuristic(int puzzle) {
         Double h = 0.00;
