@@ -64,7 +64,9 @@ public class AStar extends Agent {
         Double h = 0.00;
         String puzzleStr = Node.puzzleConvertor(puzzle);
         for (int i = 0; i < puzzleStr.length(); i++) {
+            //current state
             Point target = getPos(Integer.parseInt("" + puzzleStr.charAt(i)));
+            //goal state
             Point current = getPos(i);
             h += heuristicFunction.apply(target, current);
         }
