@@ -327,6 +327,9 @@ public class PuzzleGame {
                 //}else {
                 //    label2.setTextFill(Color.web("#ff0000"));
                 //    label2.setText(" Not solvable Example !!!! ");
+                //    label3.setText("#no of nodes =" + noNodes);
+                //    label4.setText("Max depth = " + agent.getMaxDepth());
+                //    label6.setText("Time =" + agent.getTime() + " ms");
                 //}
             }else {
                 label2.setTextFill(Color.web("#ff0000"));
