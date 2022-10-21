@@ -311,21 +311,26 @@ public class PuzzleGame {
             System.out.println(method);
             label2.setTextFill(Color.web("#664d00"));
             Agent agent = AgentFactory.agentMaker(method);
-            agent.solve(Integer.parseInt(arr));
-            puzz = agent.res;
-            ctr = agent.res.size() - 1;
-            noNodes = agent.getNodesExpanded();
-            System.out.println(method);
-            if (puzz.size() != 0) {
+            Node n = new Node(Integer.parseInt(arr));
+            if(n.isSolvableState()) {
+                agent.solve(Integer.parseInt(arr));
+                puzz = agent.res;
+                ctr = agent.res.size() - 1;
+                noNodes = agent.getNodesExpanded();
+                System.out.println(method);
+                //if(puzz.size()!=0) {//in case we want to test without checking solvable first
                 System.out.println(puzz.get(0).getDepth());
                 label2.setText("Max depth = " + agent.getMaxDepth());
                 label3.setText("#no of nodes =" + noNodes);
                 label4.setText("Cost/Depth =" + agent.getDepth());
-                label6.setText("Time =" + agent.getTime()+" ms");
-            } else {
+                label6.setText("Time =" + agent.getTime() + " ms");
+                //}else {
+                //    label2.setTextFill(Color.web("#ff0000"));
+                //    label2.setText(" Not solvable Example !!!! ");
+                //}
+            }else {
                 label2.setTextFill(Color.web("#ff0000"));
                 label2.setText(" Not solvable Example !!!! ");
-
             }
         }
 
