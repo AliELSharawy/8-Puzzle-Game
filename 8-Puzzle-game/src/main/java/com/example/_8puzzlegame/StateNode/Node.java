@@ -97,8 +97,8 @@ public class Node {
         // clone the array so not change in the original one
         StringBuilder pc = new StringBuilder(puzzleConvertor(p));
         // swap the 2 numbers
-        pc.setCharAt(i,pc.charAt(j));
-        pc.setCharAt(j,'0');
+        pc.setCharAt(i, pc.charAt(j));
+        pc.setCharAt(j, '0');
         return Integer.parseInt(pc.toString());
     }
 
@@ -131,7 +131,6 @@ public class Node {
         }
 
 
-
         noStates += move(puzzle, getSpaceIndex(), 'd');
         noStates += move(puzzle, getSpaceIndex(), 'r');
         noStates += move(puzzle, getSpaceIndex(), 'l');
@@ -141,31 +140,32 @@ public class Node {
     }
 
     public boolean isSolvableState() {
-        int [] curr = new int[3*3];
+        int[] curr = new int[3 * 3];
         String st = Integer.toString(puzzle);
-        if(st.length() != 9) {
+        if (st.length() != 9) {
             st = '0' + st;
         }
-        for (int i = 0; i < st.length(); i++){
+        for (int i = 0; i < st.length(); i++) {
             curr[i] = st.charAt(i) - '0';
         }
 
         int inversionCount = 0;
         for (int i = 0; i < 9 - 1; i++)
-            for (int j = i+1; j < 9; j++)
+            for (int j = i + 1; j < 9; j++)
                 if (curr[i] > curr[j] && curr[i] > 0 && curr[j] > 0)
                     inversionCount++;
         return (inversionCount % 2 == 0);
     }
+
     //goal test check if number in the list is not in ascending order this means it's not int the goal
     //0 1 2 3 4 5 6 7 8
     public boolean goalTest() {
         return puzzle == 12345678;
     }
 
-    public static String puzzleConvertor(int puzzle){
+    public static String puzzleConvertor(int puzzle) {
         String puzzleStr = Integer.toString(puzzle);
-        if(puzzleStr.length() < 9)
+        if (puzzleStr.length() < 9)
             return '0' + puzzleStr;
         return puzzleStr;
     }

@@ -12,7 +12,6 @@ public abstract class Agent {
     protected int maxDepth;
 
 
-
     public long time;
     protected int nodesExpanded;
     protected int nodesVisited;
@@ -21,7 +20,7 @@ public abstract class Agent {
         goal = null;
         maxDepth = 0;
         nodesExpanded = 0;
-        time =0;
+        time = 0;
         nodesVisited = 0;
     }
 
@@ -30,6 +29,7 @@ public abstract class Agent {
     public void expand(Node state) {
         nodesExpanded += state.expand();
     }
+
     public long getTime() {
         return time;
     }
@@ -37,12 +37,15 @@ public abstract class Agent {
     public void setTime(long time) {
         this.time = time;
     }
+
     public int getVisitedNodes() {
         return nodesVisited;
     }
+
     public void setVisitedNodes(int nodesVisited) {
         this.nodesVisited = nodesVisited;
     }
+
     public void tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
@@ -53,7 +56,7 @@ public abstract class Agent {
             p.add(curr);
         }
 
-        StringBuilder steps= new StringBuilder();
+        StringBuilder steps = new StringBuilder();
         for (int i = p.size() - 1; i >= 0; i--) {
             steps.append("---------\n");
             String resultPuzzle = Node.puzzleConvertor(p.get(i).puzzle);
@@ -63,7 +66,7 @@ public abstract class Agent {
                 if (j % 3 == 2) {
                     System.out.println();
                     steps.append("\n");
-                }else {
+                } else {
                     steps.append("| ");
                 }
             }

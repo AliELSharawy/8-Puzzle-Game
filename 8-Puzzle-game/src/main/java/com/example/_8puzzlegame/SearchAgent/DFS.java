@@ -42,7 +42,7 @@ public class DFS extends Agent {
             }
 
         }
-        long executionTime = (System.nanoTime() - start)/1000;
+        long executionTime = (System.nanoTime() - start) / 1000;
         setTime(executionTime);
         setVisitedNodes(visited.size());
         // return tracePath(goal);

@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class PuzzleGame {
     public int noNodes = 0;
     public int visitNode = 0;
 
-    public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image("file:src/main/resources/img.png"),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,1000, false, false, true, true)));
+    public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image("file:src/main/resources/img.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(1000, 1000, false, false, true, true)));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
     public int ctr = puzz.size() - 1;
@@ -167,7 +168,7 @@ public class PuzzleGame {
         hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5,label6,label7, combo_box, next, prev, hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4, label5, label6, label7, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setTitle("8 Puzzle Game :)");
@@ -191,7 +192,7 @@ public class PuzzleGame {
                 String puzzleRes = Node.puzzleConvertor(puzz.get(k).puzzle);
                 for (int j = 0; j < 3; j++) {
                     char c = puzzleRes.charAt(j + 3 * i);
-                    if ( c != '0') {
+                    if (c != '0') {
                         Label label = new Label(String.valueOf(c));
                         label.setTextFill(Color.ORANGE);
                         Font font = Font.font("Verdana", FontWeight.BOLD, 15);
@@ -237,9 +238,8 @@ public class PuzzleGame {
     }
 
 
-
     public void updateCtr(int go) {
-        if(!Objects.equals(p, "")) {
+        if (!Objects.equals(p, "")) {
             if (go == -1 && ctr >= 1) {
                 ctr--;
                 System.out.println(puzz.size());
@@ -256,25 +256,25 @@ public class PuzzleGame {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 String s;
-                if(Integer.toString(n.puzzle).length()==8){
-                    s="0"+Integer.toString(n.puzzle);
-                }else {
-                    s=Integer.toString(n.puzzle);
+                if (Integer.toString(n.puzzle).length() == 8) {
+                    s = "0" + Integer.toString(n.puzzle);
+                } else {
+                    s = Integer.toString(n.puzzle);
                 }
                 char c = s.charAt(j + 3 * i);
                 if (c != '0') {
-                    updateUX(i, j, c -'0');
+                    updateUX(i, j, c - '0');
                 }
             }
         }
     }
 
-    public boolean validation(String arr){
+    public boolean validation(String arr) {
         Set<Integer> s = new HashSet<>();
         for (int i = 0; i < arr.length(); i++) {
-            if(arr.charAt(i) - '0' <=8 && arr.charAt(i) - '0' >=0) {
+            if (arr.charAt(i) - '0' <= 8 && arr.charAt(i) - '0' >= 0) {
                 s.add(arr.charAt(i) - '0');
-            }else {
+            } else {
                 return false;
             }
         }
@@ -288,8 +288,8 @@ public class PuzzleGame {
         label5.setText("");
         label6.setText("");
         label7.setText("");
-        puzz= new LinkedList<>();
-        p="";
+        puzz = new LinkedList<>();
+        p = "";
         if (validation(arr)) {
             int[] arr1 = new int[9];
             p = arr;
@@ -304,7 +304,7 @@ public class PuzzleGame {
                     }
                 }
             }
-        }else {
+        } else {
             drawGridPane();
             label5.setText("INVALID INPUT!!!");
         }
@@ -317,13 +317,13 @@ public class PuzzleGame {
         label5.setText("");
         label6.setText("");
         label7.setText("");
-        if(!Objects.equals(p, "")) {
+        if (!Objects.equals(p, "")) {
             solving(arr1);
             System.out.println(method);
             label2.setTextFill(Color.web("#664d00"));
             Agent agent = AgentFactory.agentMaker(method);
             Node n = new Node(Integer.parseInt(arr));
-            if(n.isSolvableState()) {
+            if (n.isSolvableState()) {
                 agent.solve(Integer.parseInt(arr));
                 puzz = agent.res;
                 ctr = agent.res.size() - 1;
@@ -345,7 +345,7 @@ public class PuzzleGame {
                 //    label6.setText("#no of nodes visited =" + visitNode);
                 //    label7.setText("Time =" + agent.getTime() + " µs");
                 //}
-            }else {
+            } else {
                 label2.setTextFill(Color.web("#ff0000"));
                 label2.setText(" Not solvable Example !!!! ");
             }
@@ -380,7 +380,6 @@ public class PuzzleGame {
 
 
     }
-
 
 
     private void updateUX(int i, int j, int index) {

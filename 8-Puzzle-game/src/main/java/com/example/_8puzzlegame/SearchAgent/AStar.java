@@ -1,6 +1,7 @@
 package com.example._8puzzlegame.SearchAgent;
 
 import com.example._8puzzlegame.StateNode.Node;
+
 import java.awt.*;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -46,7 +47,7 @@ public class AStar extends Agent {
                 }
             }
         }
-        long executionTime = (System.nanoTime() - start)/1000;
+        long executionTime = (System.nanoTime() - start) / 1000;
         setTime(executionTime);
         setVisitedNodes(visited.size());
         //return tracePath(goal);

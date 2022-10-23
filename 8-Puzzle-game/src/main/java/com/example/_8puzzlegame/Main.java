@@ -1,4 +1,5 @@
 package com.example._8puzzlegame;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -73,7 +74,7 @@ public class Main extends Application {
             controller.getMainStage(stage);
 
 
-            Scene scene = new Scene(root,500,500);
+            Scene scene = new Scene(root, 500, 500);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.centerOnScreen();
