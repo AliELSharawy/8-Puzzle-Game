@@ -27,7 +27,7 @@ import java.util.Set;
 
 public class PuzzleGame {
 
-    public static LinkedList<Node> puzz = new LinkedList<>();//contains the result
+    public static LinkedList<Node> board = new LinkedList<>();//contains the result
     public String p = "";// store the input array of the user
     private final GridPane gridPane;
     public Label label2;//max depth
@@ -42,7 +42,7 @@ public class PuzzleGame {
     public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image("file:src/main/resources/img.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, new BackgroundSize(1000, 1000, false, false, true, true)));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
 
-    public int ctr = puzz.size() - 1;
+    public int ctr = board.size() - 1;
 
 
     public PuzzleGame() {
@@ -185,11 +185,11 @@ public class PuzzleGame {
         root.setSpacing(10);
         root.setPadding(new Insets(10));
 
-        for (int k = puzz.size() - 1; k >= 0; k--) {
+        for (int k = board.size() - 1; k >= 0; k--) {
             //GridPane grid = new GridPane();
             GridPane grid = createNewGridPane(60 + k * 130);
             for (int i = 0; i < 3; i++) {
-                String puzzleRes = Node.puzzleConvertor(puzz.get(k).puzzle);
+                String puzzleRes = Node.puzzleConvertor(board.get(k).puzzle);
                 for (int j = 0; j < 3; j++) {
                     char c = puzzleRes.charAt(j + 3 * i);
                     if (c != '0') {
@@ -242,11 +242,11 @@ public class PuzzleGame {
         if (!Objects.equals(p, "")) {
             if (go == -1 && ctr >= 1) {
                 ctr--;
-                System.out.println(puzz.size());
-                next(puzz.get(ctr));
-            } else if (go == 1 && ctr <= puzz.size() - 2) {
+                System.out.println(board.size());
+                next(board.get(ctr));
+            } else if (go == 1 && ctr <= board.size() - 2) {
                 ctr++;
-                next(puzz.get(ctr));
+                next(board.get(ctr));
             }
         }
     }
@@ -288,8 +288,10 @@ public class PuzzleGame {
         label5.setText("");
         label6.setText("");
         label7.setText("");
-        puzz = new LinkedList<>();
+        board = new LinkedList<>();
         p = "";
+        int k=12345678;
+        System.out.println("0"+k);
         if (validation(arr)) {
             int[] arr1 = new int[9];
             p = arr;
@@ -325,13 +327,13 @@ public class PuzzleGame {
             Node n = new Node(Integer.parseInt(arr));
             if (n.isSolvableState()) {
                 agent.solve(Integer.parseInt(arr));
-                puzz = agent.res;
+                board = agent.res;
                 ctr = agent.res.size() - 1;
                 noNodes = agent.getNodesExpanded();
                 visitNode = agent.getVisitedNodes();
                 System.out.println(method);
-                //if(puzz.size()!=0) {//in case we want to test without checking solvable first
-                System.out.println(puzz.get(0).getDepth());
+                //if(board.size()!=0) {//in case we want to test without checking solvable first
+                System.out.println(board.get(0).getDepth());
                 label2.setText("Max depth = " + agent.getMaxDepth());
                 label3.setText("#no of nodes expanded =" + noNodes);
                 label4.setText("Cost/Depth =" + agent.getDepth());
