@@ -257,7 +257,7 @@ public class PuzzleGame {
             for (int j = 0; j < 3; j++) {
                 String s;
                 if (Integer.toString(n.puzzle).length() == 8) {
-                    s = "0" + Integer.toString(n.puzzle);
+                    s = "0" + n.puzzle;
                 } else {
                     s = Integer.toString(n.puzzle);
                 }
