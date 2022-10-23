@@ -13,7 +13,7 @@
 > **Ali Hassan Alsharawy**  
 
 ## UI
-![image]()
+![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/puzzle.png)
 
 ## Table of Contents
 
@@ -26,10 +26,20 @@
     - [User Guide](#User-Guide)
     - [UI Samples](#UI-Samples)
 
-## Setup
+## Search-Algorithms
 
 ### BFS
--Start by checking the shallowest node first,serch level by level and check if it was the goal when dequeueing from queue.
+- Start by checking the shallowest node first,serch level by level and check if it was the goal when dequeueing from queue.
+### DFS
+- Start by checking the deepest node first, and check if it was the goal when poping from stack.
+### A*
+- Searching according to the min(Cost(x) + heuristic(x)) using Priority Queue as frontier.The heuristic is calculated using 2 different methods **Manhattan**  and **Euclidean**
+
+## Features and User Guide
+   
+### Features   
+
+
 
 
 
