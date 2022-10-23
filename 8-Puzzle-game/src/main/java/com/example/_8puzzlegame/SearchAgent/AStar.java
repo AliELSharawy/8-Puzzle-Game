@@ -11,20 +11,23 @@ public class AStar extends Agent {
     private final BiFunction<Point, Point, Double> heuristicFunction;
 
     public AStar(BiFunction<Point, Point, Double> hFn) {
+        //assign(manhattanDistance or euclidean) to heuristic function
         heuristicFunction = hFn;
     }
 
     @Override
     public void solve(int startState) {
         Node root = new Node(startState);
-        PriorityQueue<Node> pq = new PriorityQueue<>((Node n1, Node n2) ->
-                Double.compare(n1.getDepth() + calculateHeuristic(n1.puzzle), n2.getDepth() + calculateHeuristic(n2.puzzle)));
+        //using priority queue to get the smallest path compare according  to sum of cost and heuristic
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingDouble((Node n) -> n.getDepth() + calculateHeuristic(n.puzzle)));
         Set<Integer> visited = new HashSet<>();
         Map<Integer, Double> stateCostMap = new HashMap<>();
         pq.add(root);
+        //used this map to find if the state exist in priority queue or to add it
         stateCostMap.put(startState, calculateHeuristic(startState));
 
         long start = System.nanoTime();
+
         while (!pq.isEmpty()) {
             Node state = pq.poll();
             visited.add(state.puzzle);
@@ -39,6 +42,7 @@ public class AStar extends Agent {
 
             for (Node child : state.getChildren()) {
                 int puzzle = child.puzzle;
+                //fn store the cost and the heuristic value(euclidean or manhattanDistance)
                 double fn = child.getDepth() + calculateHeuristic(puzzle);
                 if (!visited.contains(puzzle) && (!stateCostMap.containsKey(puzzle)
                         || stateCostMap.containsKey(puzzle) && fn < stateCostMap.get(puzzle))) {
@@ -78,6 +82,7 @@ public class AStar extends Agent {
         return h;
     }
 
+    // divide by 3 to get the right row and %3 to get the right column
     private Point getPos(int i) {
         return new Point(i / 3, i % 3);
     }

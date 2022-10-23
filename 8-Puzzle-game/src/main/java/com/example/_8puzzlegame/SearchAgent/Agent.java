@@ -46,6 +46,8 @@ public abstract class Agent {
         this.nodesVisited = nodesVisited;
     }
 
+    //to get the path to the goal we trace fom the goal to the root node
+// using parent field and store the path in linked list
     public void tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;
@@ -78,6 +80,7 @@ public abstract class Agent {
         System.out.println("nodes " + getNodesExpanded());
         res = p;
 
+        // if the path so huge will be viewed in file "path.txt" in your directory of project
         FileWriter output;
         try {
             output = new FileWriter("path.txt");

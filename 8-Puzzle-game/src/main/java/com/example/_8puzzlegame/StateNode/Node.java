@@ -75,6 +75,7 @@ public class Node {
         };
     }
 
+    //update the parent of the node and depth
     public void insert(int newState) {
         Node child = new Node(newState);
         child.setDepth(depth + 1);
@@ -93,6 +94,7 @@ public class Node {
         return 0;
     }
 
+    //swap the empty cell withe other cell want to move to
     private int swap(int p, int i, int j) {
         // clone the array so not change in the original one
         StringBuilder pc = new StringBuilder(puzzleConvertor(p));
@@ -102,6 +104,7 @@ public class Node {
         return Integer.parseInt(pc.toString());
     }
 
+    // check if we can make this move or not
     private boolean isValid(char direction) {
 
         return switch (direction) {
@@ -118,7 +121,7 @@ public class Node {
         };
     }
 
-    // expand our algorithm
+    // expand our algorithm do the available move to the right or left or down or up
 
     public int expand() {
         int noStates = 0;
@@ -129,7 +132,6 @@ public class Node {
                 break;
             }
         }
-
 
         noStates += move(puzzle, getSpaceIndex(), 'd');
         noStates += move(puzzle, getSpaceIndex(), 'r');
