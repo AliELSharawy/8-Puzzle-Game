@@ -56,7 +56,7 @@ public class PuzzleGame {
     private void drawMainWindow(Stage stage) {
         AnchorPane pane = new AnchorPane();
         int h = 600;
-        int w = 800;
+        int w = 820;
 
 
         drawGridPane();
