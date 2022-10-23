@@ -15,12 +15,14 @@ public abstract class Agent {
 
     public long time;
     protected int nodesExpanded;
+    protected int nodesVisited;
 
     public Agent() {
         goal = null;
         maxDepth = 0;
         nodesExpanded = 0;
         time =0;
+        nodesVisited = 0;
     }
 
     public abstract void solve(int startState);
@@ -35,7 +37,12 @@ public abstract class Agent {
     public void setTime(long time) {
         this.time = time;
     }
-
+    public int getVisitedNodes() {
+        return nodesVisited;
+    }
+    public void setVisitedNodes(int nodesVisited) {
+        this.nodesVisited = nodesVisited;
+    }
     public void tracePath(Node n) {
         LinkedList<Node> p = new LinkedList<>();
         Node curr = n;

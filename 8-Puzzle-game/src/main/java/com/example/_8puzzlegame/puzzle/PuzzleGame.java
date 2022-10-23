@@ -34,8 +34,9 @@ public class PuzzleGame {
     public Label label4;//depth/cost
     public Label label5;//invalid input
     public Label label6;
+    public Label label7;
     public int noNodes = 0;
-
+    public int visitNode = 0;
 
     public static final Background SKY_BLUE = new Background(new BackgroundImage(new Image("file:src/main/resources/img.png"),BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT,new BackgroundSize(1000,1000, false, false, true, true)));
     public static final Background White = new Background(new BackgroundFill(Color.WHITE, null, null));
@@ -129,12 +130,19 @@ public class PuzzleGame {
         label6.setTextFill(Color.web("#664d00"));
         label6.setFont(new Font("Cambria", 18));
 
+        label7 = new Label();
+        label7.setLayoutX(500);
+        label7.setLayoutY(520);
+        label7.setTextFill(Color.web("#664d00"));
+        label7.setFont(new Font("Cambria", 18));
 
         label5 = new Label();
         label5.setLayoutX(500);
         label5.setLayoutY(190);
         label5.setTextFill(Color.RED);
         label5.setFont(new Font("Cambria", 18));
+
+
         //button of puzzle entrance
         Button next = new Button("Next");
         next.setLayoutX(370);
@@ -159,7 +167,7 @@ public class PuzzleGame {
         hist.setStyle("-fx-background-radius: 15px; -fx-background-color: #cc9900;");
         hist.setOnMouseClicked(e -> pathWindow());
 
-        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5,label6, combo_box, next, prev, hist);
+        pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5,label6,label7, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
         stage.setTitle("8 Puzzle Game :)");
@@ -279,6 +287,7 @@ public class PuzzleGame {
         label4.setText("");
         label5.setText("");
         label6.setText("");
+        label7.setText("");
         puzz= new LinkedList<>();
         p="";
         if (validation(arr)) {
@@ -307,6 +316,7 @@ public class PuzzleGame {
         label4.setText("");
         label5.setText("");
         label6.setText("");
+        label7.setText("");
         if(!Objects.equals(p, "")) {
             solving(arr1);
             System.out.println(method);
@@ -318,19 +328,22 @@ public class PuzzleGame {
                 puzz = agent.res;
                 ctr = agent.res.size() - 1;
                 noNodes = agent.getNodesExpanded();
+                visitNode = agent.getVisitedNodes();
                 System.out.println(method);
                 //if(puzz.size()!=0) {//in case we want to test without checking solvable first
                 System.out.println(puzz.get(0).getDepth());
                 label2.setText("Max depth = " + agent.getMaxDepth());
-                label3.setText("#no of nodes =" + noNodes);
+                label3.setText("#no of nodes expanded =" + noNodes);
                 label4.setText("Cost/Depth =" + agent.getDepth());
-                label6.setText("Time =" + agent.getTime() + " ms");
+                label6.setText("#no of nodes visited =" + visitNode);
+                label7.setText("Time =" + agent.getTime() + " µs");
                 //}else {
                 //    label2.setTextFill(Color.web("#ff0000"));
                 //    label2.setText(" Not solvable Example !!!! ");
-                //    label3.setText("#no of nodes =" + noNodes);
+                //    label3.setText("#no of nodes expanded =" + noNodes);
                 //    label4.setText("Max depth = " + agent.getMaxDepth());
-                //    label6.setText("Time =" + agent.getTime() + " ms");
+                //    label6.setText("#no of nodes visited =" + visitNode);
+                //    label7.setText("Time =" + agent.getTime() + " µs");
                 //}
             }else {
                 label2.setTextFill(Color.web("#ff0000"));

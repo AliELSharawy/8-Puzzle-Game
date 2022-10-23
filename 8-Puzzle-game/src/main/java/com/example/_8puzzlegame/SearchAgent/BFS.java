@@ -43,12 +43,18 @@ public class BFS extends Agent {
 
         long executionTime = (System.nanoTime() - start)/1000;
         setTime(executionTime);
+        setVisitedNodes(visited.size());
         // return tracePath(goal);
         if (goal != null) {
             tracePath(goal);
-            System.out.println("Time taken by SearchAgent BFS " + executionTime + " ms");
-        } else
+            System.out.println("Time taken by SearchAgent BFS " + executionTime + " µs");
+        } else {
             System.out.println(" Not solvable Example  !!!! ");
+            System.out.println("Time taken by SearchAgent DFS " + executionTime + " µs");
+            System.out.println("nodes expanded " + getNodesExpanded());
+            System.out.println("nodes visited " + getVisitedNodes());
+            System.out.println("Max Depth " + getMaxDepth());
+        }
 
     }
 }
