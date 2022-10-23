@@ -162,6 +162,7 @@ public class PuzzleGame {
         pane.getChildren().addAll(gridPane, label, text, puzzleEnter, start, label1, label2, label3, label4,label5,label6, combo_box, next, prev, hist);
         pane.setBackground(SKY_BLUE);
         Scene scene = new Scene(pane, w, h);
+        stage.setTitle("8 Puzzle Game :)");
         stage.setScene(scene);
         stage.show();
     }

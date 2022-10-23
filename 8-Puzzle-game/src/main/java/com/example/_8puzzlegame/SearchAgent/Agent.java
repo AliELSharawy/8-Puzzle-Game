@@ -2,6 +2,8 @@ package com.example._8puzzlegame.SearchAgent;
 
 import com.example._8puzzlegame.StateNode.Node;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public abstract class Agent {
@@ -44,7 +46,9 @@ public abstract class Agent {
             p.add(curr);
         }
 
+        StringBuilder steps= new StringBuilder();
         for (int i = p.size() - 1; i >= 0; i--) {
+            steps.append(Stringify(p.get(i)));
             String resultPuzzle = Node.puzzleConvertor(p.get(i).puzzle);
             for (int j = 0; j < resultPuzzle.length(); j++) {
                 System.out.print(resultPuzzle.charAt(j) + " ");
@@ -57,6 +61,37 @@ public abstract class Agent {
         System.out.println("maxDepth : " + getMaxDepth());
         System.out.println("nodes " + getNodesExpanded());
         res = p;
+
+        FileWriter output;
+        try {
+            output = new FileWriter("path.txt");
+            output.write(steps.toString());
+            output.flush();
+            output.close();
+            System.out.println("Path is Printed to path.txt");
+        } catch (IOException e) {
+            System.out.println("Failed to save the path file.\n"
+                    + "The path is:\n" + steps);
+        }
+    }
+    public String Stringify(Node nod) {//For Printing In the File :)
+        String st = Integer.toString(nod.puzzle);
+        if(st.length() != 9) {
+            st = '0' + st;
+        }
+        StringBuilder s = new StringBuilder();
+        s.append("---------\n");
+        for(int i=0;i<3;i++) {
+            for(int j=3*i;j<3*i+3;j++) {
+                s.append(st.charAt(j)).append(" ");
+                if(j%3 != 2)
+                    s.append("| ");
+                else
+                    s.append("\n");
+            }
+        }
+        s.append("---------\n\n\n");
+        return s.toString();
     }
 
     public int getDepth() {
