@@ -16,7 +16,7 @@ public class DFS extends Agent {
         stack.push(root);
         fringeElements.add(root.puzzle);
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
 
         while (!stack.isEmpty()) {
             Node state = stack.pop();
@@ -24,6 +24,7 @@ public class DFS extends Agent {
             visited.add(state.puzzle);
 
             this.maxDepth = Math.max(this.maxDepth, state.getDepth());
+            // found goal when dequeue(removing from stack)
             if (state.goalTest()) {
                 System.out.println("Goal Found");
                 goal = state;
@@ -41,8 +42,9 @@ public class DFS extends Agent {
             }
 
         }
-        long executionTime = System.currentTimeMillis() - start;
+        long executionTime = (System.nanoTime() - start)/1000;
         setTime(executionTime);
+        // return tracePath(goal);
         if (goal != null) {
             tracePath(goal);
             System.out.println("Time taken by SearchAgent DFS " + executionTime + " ms");

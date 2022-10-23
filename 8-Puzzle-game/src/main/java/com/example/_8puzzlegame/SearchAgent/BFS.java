@@ -15,7 +15,7 @@ public class BFS extends Agent {
         queue.add(root);
         fringeElements.add(root.puzzle);
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
 
         while (!queue.isEmpty()) {
             Node state = queue.poll();
@@ -41,7 +41,7 @@ public class BFS extends Agent {
 
         }
 
-        long executionTime = System.currentTimeMillis() - start;
+        long executionTime = (System.nanoTime() - start)/1000;
         setTime(executionTime);
         // return tracePath(goal);
         if (goal != null) {

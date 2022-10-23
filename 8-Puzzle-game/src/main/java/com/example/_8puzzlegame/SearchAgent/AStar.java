@@ -23,7 +23,7 @@ public class AStar extends Agent {
         pq.add(root);
         stateCostMap.put(startState, calculateHeuristic(startState));
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         while (!pq.isEmpty()) {
             Node state = pq.poll();
             visited.add(state.puzzle);
@@ -46,7 +46,7 @@ public class AStar extends Agent {
                 }
             }
         }
-        long executionTime = System.currentTimeMillis() - start;
+        long executionTime = (System.nanoTime() - start)/1000;
         setTime(executionTime);
         //return tracePath(goal);
         if (goal != null) {
