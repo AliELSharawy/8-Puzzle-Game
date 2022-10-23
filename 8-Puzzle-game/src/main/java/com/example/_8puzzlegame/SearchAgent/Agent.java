@@ -48,13 +48,19 @@ public abstract class Agent {
 
         StringBuilder steps= new StringBuilder();
         for (int i = p.size() - 1; i >= 0; i--) {
-            steps.append(Stringify(p.get(i)));
+            steps.append("---------\n");
             String resultPuzzle = Node.puzzleConvertor(p.get(i).puzzle);
             for (int j = 0; j < resultPuzzle.length(); j++) {
                 System.out.print(resultPuzzle.charAt(j) + " ");
-                if (j % 3 == 2)
+                steps.append(resultPuzzle.charAt(j)).append(" ");
+                if (j % 3 == 2) {
                     System.out.println();
+                    steps.append("\n");
+                }else {
+                    steps.append("| ");
+                }
             }
+            steps.append("---------\n");
             System.out.println();
         }
         System.out.println("cost " + (p.size() - 1));
@@ -73,25 +79,6 @@ public abstract class Agent {
             System.out.println("Failed to save the path file.\n"
                     + "The path is:\n" + steps);
         }
-    }
-    public String Stringify(Node nod) {//For Printing In the File :)
-        String st = Integer.toString(nod.puzzle);
-        if(st.length() != 9) {
-            st = '0' + st;
-        }
-        StringBuilder s = new StringBuilder();
-        s.append("---------\n");
-        for(int i=0;i<3;i++) {
-            for(int j=3*i;j<3*i+3;j++) {
-                s.append(st.charAt(j)).append(" ");
-                if(j%3 != 2)
-                    s.append("| ");
-                else
-                    s.append("\n");
-            }
-        }
-        s.append("---------\n\n\n");
-        return s.toString();
     }
 
     public int getDepth() {
