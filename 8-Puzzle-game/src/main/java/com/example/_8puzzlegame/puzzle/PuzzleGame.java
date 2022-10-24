@@ -290,8 +290,8 @@ public class PuzzleGame {
         label7.setText("");
         board = new LinkedList<>();
         p = "";
-        int k=12345678;
-        System.out.println("0"+k);
+        int k = 12345678;
+        System.out.println("0" + k);
         if (validation(arr)) {
             int[] arr1 = new int[9];
             p = arr;
@@ -326,26 +326,26 @@ public class PuzzleGame {
             Agent agent = AgentFactory.agentMaker(method);
 //            Node n = new Node(Integer.parseInt(arr));
 //            if (n.isSolvableState()) {
-                agent.solve(Integer.parseInt(arr));
-                board = agent.res;
-                ctr = agent.res.size() - 1;
-                noNodes = agent.getNodesExpanded();
-                visitNode = agent.getVisitedNodes();
-                System.out.println(method);
-                if(board.size()!=0) {//in case we want to test without checking solvable first
+            agent.solve(Integer.parseInt(arr));
+            board = agent.res;
+            ctr = agent.res.size() - 1;
+            noNodes = agent.getNodesExpanded();
+            visitNode = agent.getVisitedNodes();
+            System.out.println(method);
+            if (board.size() != 0) {//in case we want to test without checking solvable first
                 System.out.println(board.get(0).getDepth());
                 label2.setText("Max depth = " + agent.getMaxDepth());
                 label3.setText("#no of nodes expanded = " + visitNode);
                 label4.setText("Cost of path = " + agent.getDepth());
                 label6.setText("Search Depth = " + agent.getDepth());
                 label7.setText("Time =" + agent.getTime() + " µs");
-                }else {
-                    label2.setTextFill(Color.web("#ff0000"));
-                    label2.setText(" Not solvable Example !!!! ");
-                    label3.setText("#no of nodes expanded = " + visitNode);
-                    label4.setText("Max depth = " + agent.getMaxDepth());
-                    label6.setText("Time =" + agent.getTime() + " µs");
-                }
+            } else {
+                label2.setTextFill(Color.web("#ff0000"));
+                label2.setText(" Not solvable Example !!!! ");
+                label3.setText("#no of nodes expanded = " + visitNode);
+                label4.setText("Max depth = " + agent.getMaxDepth());
+                label6.setText("Time =" + agent.getTime() + " µs");
+            }
 //            } else {
 //                label2.setTextFill(Color.web("#ff0000"));
 //                label2.setText(" Not solvable Example !!!! ");
