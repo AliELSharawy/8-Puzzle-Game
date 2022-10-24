@@ -73,6 +73,8 @@ public class AStar extends Agent {
         Double h = 0.00;
         String puzzleStr = Node.puzzleConvertor(puzzle);
         for (int i = 0; i < puzzleStr.length(); i++) {
+            if (puzzleStr.charAt(i) == '0')
+                continue;
             //current state
             Point target = getPos(Integer.parseInt("" + puzzleStr.charAt(i)));
             //goal state
