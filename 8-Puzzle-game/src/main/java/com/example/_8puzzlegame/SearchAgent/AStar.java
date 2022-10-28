@@ -15,6 +15,7 @@ public class AStar extends Agent {
         heuristicFunction = hFn;
     }
 
+
     @Override
     public void solve(int startState) {
         Node root = new Node(startState);

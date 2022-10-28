@@ -4,13 +4,13 @@
 
 
 ## Authors:
-> **Habiba Osama zaky**
+> [Habiba Osama zaky](https://github.com/habibaosama)
 >
-> **Mai Ahmed Hussien**
+> [Mai Ahmed Hussien](https://github.com/MaiAhmedHussein)
 >
-> **Basel Ahmed Awad**
+> [Basel Ahmed Awad](https://github.com/Basel-byte)
 >
-> **Ali Hassan Alsharawy**  
+> [Ali Hassan Alsharawy](https://github.com/AliELSharawy)  
 
 ## UI
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/puzzle.png)
@@ -38,6 +38,13 @@
 ## Features and User Guide
    
 ### Features   
+- user can see the path to the goal by clicking on view path button
+ ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/view%20path.png)
+
+- user can see each step by clicking on next to view next step or back to return one step 
+![image]()
+
+
 
 
 
