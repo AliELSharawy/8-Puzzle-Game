@@ -24,7 +24,7 @@
 - [Features and User Guide](#Features-and-User-Guide)
     - [Features](#Features)
     - [User Guide](#User-Guide)
-    - [UI Samples](#UI-Samples)
+    
 
 ## Search-Algorithms
 
@@ -39,9 +39,13 @@
    
 ### Features   
 - user can see the path to the goal by clicking on view path button
+
+
  ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/view%20path.png)
 
 - user can see each step by clicking on next to view next step or back to return one step 
+
+
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/next.png)
 
 ### User Guide
