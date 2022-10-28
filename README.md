@@ -45,15 +45,18 @@
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/next.png)
 
 ### User Guide
-1- first user enters the initial case in that form 125340678 and then click **Enter Puzzle :)**. The puzzle will be viewed as shown
+- first user enters the initial case in that form 125340678 and then click **Enter Puzzle :)**. The puzzle will be viewed as shown
 
-2-Choose the search method from the drop down menu . The default is BFS.then click **solve :)**
+- Choose the search method from the drop down menu . The default is BFS.then click **solve :)**
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/guide1.png)
 
-3- After clicking on solve the results of depth ,time and cost will appear (number4).
-4- the information wanted for this search. 
-5- you can press next to know the next move of the puzzle and keep moving till reach our **goal state 012345678**.
-6- View path will open a new window that shows the whole path as in the following photo, also the path is printed in “path.txt” file
+- After clicking on solve the results of depth ,time and cost will appear (number4).
+
+- the information wanted for this search. 
+
+- you can press next to know the next move of the puzzle and keep moving till reach our **goal state 012345678**.
+
+- View path will open a new window that shows the whole path as in the following photo, also the path is printed in “path.txt” file
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/guide2.png)
 
 
