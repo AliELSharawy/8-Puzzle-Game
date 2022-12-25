@@ -56,7 +56,7 @@
 
 ![image](https://github.com/MaiAhmedHussein/8-Puzzle-Game/blob/main/readme-images/guide1.png)
 
-- After clicking on solve the results of depth ,time and cost will appear (number4).
+- After clicking on solve the results of depth, time and cost will appear (number4).
 
 - the information wanted for this search. 
 
